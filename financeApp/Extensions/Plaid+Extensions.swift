@@ -46,7 +46,7 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: metadata!, options: .sortedKeys)
-            var bank = try JSONDecoder().decode(Bank.self, from: jsonData)
+            let bank = try JSONDecoder().decode(Bank.self, from: jsonData)
             
             plaidOperation.itemAccess(publicToken: publicToken, completion: { (itemAccess) in
                 
@@ -54,8 +54,8 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
                 plaidOperation.accounts(bank: bank, completion: { (accounts) in
                     
                     accounts?.forEach({ (account) in
-                        account.bank = bank
-                        bank.addToAccounts(account)
+                       
+                        bank.accounts?.append(account)
                     })
                     
                     let formatter = DateFormatter()
@@ -63,28 +63,28 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
                     let endDate = Date()
                     let startDate = Calendar.current.date(byAdding: .day, value: -360, to: endDate)
                     
-                    plaidOperation.transaction(with: bank, startDate: startDate!, endDate: endDate, completion: { (allTransaction) in
+                    plaidOperation.transactionFromPlaid(with: bank, startDate: startDate!, endDate: endDate, completion: { (allTransaction) in
                         
                         if allTransaction != nil{
                             
-                            let accounts = bank.accounts?.allObjects as? [Account]
+                            let accounts = bank.accounts
                             
                             // insert each transaction in the respective account
                             allTransaction?.forEach({ (transaction) in
                                 accounts?.forEach({ (account) in
                                     if transaction.accountID == account.id{
                                         transaction.account = account
-                                        account.addToTransactions(transaction)
+                                        account.transactions.append(transaction)
                                     }
                                 })
                             })
                             
                             // save in the core data
-                            let stack = CoreDataStack.instance
-                            let objectID = bank.objectID
-                            let privateBank = stack.privateContext.object(with: objectID) as! Bank
-                            bank = privateBank
-                            stack.saveTo(context: stack.privateContext)
+//                            let stack = CoreDataStack.instance
+//                            let objectID = bank.objectID
+//                            let privateBank = stack.privateContext.object(with: objectID) as! Bank
+//                            bank = privateBank
+//                            stack.saveTo(context: stack.privateContext)
                             
                         }
                     })

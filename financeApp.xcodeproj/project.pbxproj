@@ -14,6 +14,27 @@
 		2055999A2134FBDB00B06AD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 205599992134FBDB00B06AD7 /* Assets.xcassets */; };
 		2055999D2134FBDB00B06AD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2055999B2134FBDB00B06AD7 /* LaunchScreen.storyboard */; };
 		205599AA2135008200B06AD7 /* Plaid+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599A92135008200B06AD7 /* Plaid+Extensions.swift */; };
+		205599BF2135016800B06AD7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599AB2135016500B06AD7 /* Account.swift */; };
+		205599C02135016800B06AD7 /* ItemAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599AC2135016500B06AD7 /* ItemAccess.swift */; };
+		205599C12135016800B06AD7 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599AD2135016600B06AD7 /* Balance.swift */; };
+		205599C22135016800B06AD7 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599AE2135016600B06AD7 /* Transaction.swift */; };
+		205599C32135016800B06AD7 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599AF2135016600B06AD7 /* Email.swift */; };
+		205599C92135016800B06AD7 /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599B52135016600B06AD7 /* Bank.swift */; };
+		205599CB2135016800B06AD7 /* PhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599B72135016700B06AD7 /* PhoneNumber.swift */; };
+		205599CD2135016800B06AD7 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599B92135016700B06AD7 /* Identity.swift */; };
+		205599CE2135016800B06AD7 /* Addresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599BA2135016700B06AD7 /* Addresses.swift */; };
+		205599D7213508ED00B06AD7 /* PlaidOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599D6213508ED00B06AD7 /* PlaidOperation.swift */; };
+		205599DB213509AD00B06AD7 /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599D8213509AD00B06AD7 /* Routing.swift */; };
+		205599DC213509AD00B06AD7 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599D9213509AD00B06AD7 /* KeyChain.swift */; };
+		205599DD213509AD00B06AD7 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599DA213509AD00B06AD7 /* Networking.swift */; };
+		205599DF2135114500B06AD7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599DE2135114500B06AD7 /* String+Extensions.swift */; };
+		205599E1213512D400B06AD7 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599E0213512D400B06AD7 /* Date+Extensions.swift */; };
+		205599E421351A0B00B06AD7 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599E321351A0A00B06AD7 /* UserServices.swift */; };
+		205599E621351A4D00B06AD7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599E521351A4D00B06AD7 /* User.swift */; };
+		205599E82135227800B06AD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 205599E72135227800B06AD7 /* GoogleService-Info.plist */; };
+		205599EA213526C800B06AD7 /* PlaidServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599E9213526C800B06AD7 /* PlaidServices.swift */; };
+		205599EC2135DC8800B06AD7 /* MessageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599EB2135DC8800B06AD7 /* MessageServices.swift */; };
+		205599EE2135DCF500B06AD7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599ED2135DCF500B06AD7 /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +46,27 @@
 		2055999C2134FBDB00B06AD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2055999E2134FBDB00B06AD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		205599A92135008200B06AD7 /* Plaid+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plaid+Extensions.swift"; sourceTree = "<group>"; };
+		205599AB2135016500B06AD7 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		205599AC2135016500B06AD7 /* ItemAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemAccess.swift; sourceTree = "<group>"; };
+		205599AD2135016600B06AD7 /* Balance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
+		205599AE2135016600B06AD7 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		205599AF2135016600B06AD7 /* Email.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
+		205599B52135016600B06AD7 /* Bank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
+		205599B72135016700B06AD7 /* PhoneNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumber.swift; sourceTree = "<group>"; };
+		205599B92135016700B06AD7 /* Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
+		205599BA2135016700B06AD7 /* Addresses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Addresses.swift; sourceTree = "<group>"; };
+		205599D6213508ED00B06AD7 /* PlaidOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaidOperation.swift; sourceTree = "<group>"; };
+		205599D8213509AD00B06AD7 /* Routing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
+		205599D9213509AD00B06AD7 /* KeyChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
+		205599DA213509AD00B06AD7 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		205599DE2135114500B06AD7 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		205599E0213512D400B06AD7 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		205599E321351A0A00B06AD7 /* UserServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		205599E521351A4D00B06AD7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		205599E72135227800B06AD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		205599E9213526C800B06AD7 /* PlaidServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidServices.swift; sourceTree = "<group>"; };
+		205599EB2135DC8800B06AD7 /* MessageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageServices.swift; sourceTree = "<group>"; };
+		205599ED2135DCF500B06AD7 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2A293E335BB9933849828864 /* Pods_financeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_financeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB1A70996B9258FA990A9B0 /* Pods-financeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-financeApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-financeApp/Pods-financeApp.release.xcconfig"; sourceTree = "<group>"; };
 		2FEA62DC96CD68F095530D9A /* Pods-financeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-financeApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-financeApp/Pods-financeApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -63,6 +105,8 @@
 		205599912134FBDA00B06AD7 /* financeApp */ = {
 			isa = PBXGroup;
 			children = (
+				205599E2213519E500B06AD7 /* Services */,
+				205599D3213507A800B06AD7 /* Manager */,
 				205599A82135002300B06AD7 /* Controllers */,
 				205599A72134FFF500B06AD7 /* Views */,
 				205599A62134FFE300B06AD7 /* Models */,
@@ -81,6 +125,7 @@
 		205599A42134FFCC00B06AD7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				205599E72135227800B06AD7 /* GoogleService-Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -89,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				205599A92135008200B06AD7 /* Plaid+Extensions.swift */,
+				205599DE2135114500B06AD7 /* String+Extensions.swift */,
+				205599E0213512D400B06AD7 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -96,6 +143,17 @@
 		205599A62134FFE300B06AD7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				205599E521351A4D00B06AD7 /* User.swift */,
+				205599AB2135016500B06AD7 /* Account.swift */,
+				205599BA2135016700B06AD7 /* Addresses.swift */,
+				205599AD2135016600B06AD7 /* Balance.swift */,
+				205599B52135016600B06AD7 /* Bank.swift */,
+				205599AF2135016600B06AD7 /* Email.swift */,
+				205599B92135016700B06AD7 /* Identity.swift */,
+				205599AC2135016500B06AD7 /* ItemAccess.swift */,
+				205599B72135016700B06AD7 /* PhoneNumber.swift */,
+				205599AE2135016600B06AD7 /* Transaction.swift */,
+				205599ED2135DCF500B06AD7 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -112,6 +170,27 @@
 			children = (
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		205599D3213507A800B06AD7 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				205599D9213509AD00B06AD7 /* KeyChain.swift */,
+				205599DA213509AD00B06AD7 /* Networking.swift */,
+				205599D8213509AD00B06AD7 /* Routing.swift */,
+				205599D6213508ED00B06AD7 /* PlaidOperation.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		205599E2213519E500B06AD7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				205599E321351A0A00B06AD7 /* UserServices.swift */,
+				205599E9213526C800B06AD7 /* PlaidServices.swift */,
+				205599EB2135DC8800B06AD7 /* MessageServices.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		6788F2A0A20878320A08980D /* Frameworks */ = {
@@ -194,6 +273,7 @@
 			files = (
 				2055999D2134FBDB00B06AD7 /* LaunchScreen.storyboard in Resources */,
 				2055999A2134FBDB00B06AD7 /* Assets.xcassets in Resources */,
+				205599E82135227800B06AD7 /* GoogleService-Info.plist in Resources */,
 				205599982134FBDA00B06AD7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,9 +368,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				205599DB213509AD00B06AD7 /* Routing.swift in Sources */,
+				205599DD213509AD00B06AD7 /* Networking.swift in Sources */,
+				205599C32135016800B06AD7 /* Email.swift in Sources */,
+				205599CB2135016800B06AD7 /* PhoneNumber.swift in Sources */,
+				205599DC213509AD00B06AD7 /* KeyChain.swift in Sources */,
+				205599C92135016800B06AD7 /* Bank.swift in Sources */,
+				205599D7213508ED00B06AD7 /* PlaidOperation.swift in Sources */,
+				205599CE2135016800B06AD7 /* Addresses.swift in Sources */,
+				205599E621351A4D00B06AD7 /* User.swift in Sources */,
+				205599C02135016800B06AD7 /* ItemAccess.swift in Sources */,
 				205599952134FBDA00B06AD7 /* ViewController.swift in Sources */,
+				205599C12135016800B06AD7 /* Balance.swift in Sources */,
+				205599E1213512D400B06AD7 /* Date+Extensions.swift in Sources */,
+				205599DF2135114500B06AD7 /* String+Extensions.swift in Sources */,
+				205599C22135016800B06AD7 /* Transaction.swift in Sources */,
+				205599EA213526C800B06AD7 /* PlaidServices.swift in Sources */,
 				205599AA2135008200B06AD7 /* Plaid+Extensions.swift in Sources */,
+				205599EE2135DCF500B06AD7 /* Message.swift in Sources */,
+				205599EC2135DC8800B06AD7 /* MessageServices.swift in Sources */,
+				205599CD2135016800B06AD7 /* Identity.swift in Sources */,
+				205599BF2135016800B06AD7 /* Account.swift in Sources */,
 				205599932134FBDA00B06AD7 /* AppDelegate.swift in Sources */,
+				205599E421351A0B00B06AD7 /* UserServices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
