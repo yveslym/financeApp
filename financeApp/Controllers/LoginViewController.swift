@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import FBSDKLoginKit
+
 class LoginViewController: UIViewController {
 
     @IBOutlet var registerView: UIView!
@@ -21,6 +23,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var registerPassword: UITextField!
     @IBOutlet weak var backToLoginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var facebookSignUpButton: FBSDKButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,8 @@ class LoginViewController: UIViewController {
          self.view.addSubview(loginView)
          self.view.addSubview(registerView)
         registerView.frame.origin.y = loginView.frame.maxY
+        
+        
     }
     func setUpLoginView(){
         let height = view.frame.height - (view.frame.height / 6)
@@ -83,6 +88,7 @@ class LoginViewController: UIViewController {
         backToLoginButton.isEnabled = true
         backToRegisterButton.isEnabled = false
     }
+    
     
    
 
