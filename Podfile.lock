@@ -111,6 +111,7 @@ PODS:
   - nanopb/encode (0.3.8)
   - Plaid (1.1.10)
   - Protobuf (3.6.1)
+  - SnapKit (4.0.0)
 
 DEPENDENCIES:
   - FBSDKLoginKit
@@ -124,6 +125,7 @@ DEPENDENCIES:
   - KeychainSwift
   - Kingfisher (~> 4.0)
   - Plaid
+  - SnapKit (~> 4.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -152,6 +154,7 @@ SPEC REPOS:
     - nanopb
     - Plaid
     - Protobuf
+    - SnapKit
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -179,7 +182,8 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Plaid: 12dcbdb591ad64f015162964f4b3b7fc2c5fb37d
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: 92e00fc488932e569490326c6674b7b9325b3a04
+PODFILE CHECKSUM: ba335c78868843729ed948971941c9ed9d8d0616
 
 COCOAPODS: 1.5.3
