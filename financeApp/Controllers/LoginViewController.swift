@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
         setUpRegisterView()
          self.view.addSubview(loginView)
          self.view.addSubview(registerView)
-        registerView.frame.origin.y = loginView.frame.maxY
+        registerView.frame.origin.y = loginView.frame.maxY - 50
         
         GIDSignIn.sharedInstance().uiDelegate = self
        
@@ -46,10 +46,10 @@ class LoginViewController: UIViewController {
         let widght = view.frame.width - (view.frame.width / 8)
         let y = view.frame.midY / 2
         let x = view.frame.midX / 4
-        loginView.frame = CGRect(x:  x , y: y, width: widght, height: height)
+        loginView.frame = CGRect(x:  x , y: 20, width: widght, height: height)
         let center = view.center
          loginView.center = center
-       loginView.frame.origin.y = 0
+       //loginView.frame.origin.y = 20
        
         
         loginButton.layer.masksToBounds = true

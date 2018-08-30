@@ -12,6 +12,7 @@ class User: Codable{
     let name: String
     let email: String
     var profileUrl : String?
+    var botID: String?
     
     private static var _current: User?
     

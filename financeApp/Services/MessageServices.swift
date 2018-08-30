@@ -52,7 +52,10 @@ struct MassageServices{
             }
         }
     }
-    
+}
+enum MessageType: String{
+    case recievedTextMessage
+    case sendTextMessage
 }
 
 

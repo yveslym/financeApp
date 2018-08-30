@@ -1,28 +1,28 @@
 //
-//  Message.swift
+//  Boot.swift
 //  financeApp
 //
-//  Created by Yves Songolo on 8/28/18.
+//  Created by Yves Songolo on 8/30/18.
 //  Copyright © 2018 Yves Songolo. All rights reserved.
 //
 
 import Foundation
-
-class Message: Decodable{
+class Bot: Decodable{
     
-    var time: String
-    var content: String
-    var senderID: String
-    var recieverID: String
-    var groupID: String
-    var msgID: String
-    var type: String
-    
+    var id: String
+    var ownerID: String
+    var name: String
+ 
+    init(){
+       id = ""
+        ownerID = ""
+        name = ""
+    }
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
+        
         let data = try! JSONSerialization.data(withJSONObject: self, options: opt)
         let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
         return json
     }
-   
+    
 }
-
