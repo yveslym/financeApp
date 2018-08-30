@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import SnapKit
+import Firebase
+import GoogleSignIn
+import FBSDKCoreKit
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
@@ -23,7 +25,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var registerPassword: UITextField!
     @IBOutlet weak var backToLoginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var facebookSignUpButton: FBSDKButton!
+    @IBOutlet weak var googleLoginButton: UIButton!
+    @IBOutlet weak var facebookSignUpButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +38,8 @@ class LoginViewController: UIViewController {
          self.view.addSubview(registerView)
         registerView.frame.origin.y = loginView.frame.maxY
         
-        
+        GIDSignIn.sharedInstance().uiDelegate = self
+       
     }
     func setUpLoginView(){
         let height = view.frame.height - (view.frame.height / 6)
@@ -88,8 +92,136 @@ class LoginViewController: UIViewController {
         backToLoginButton.isEnabled = true
         backToRegisterButton.isEnabled = false
     }
-    
-    
-   
 
+    @IBAction func googleButtonTapped(_ sender: Any) {
+         GIDSignIn.sharedInstance().signIn()
+    }
+    
+    @IBAction func facebookButtonTapped(_ sender: Any) {
+        let login = FBSDKLoginManager()
+        
+        login.logIn(withReadPermissions: ["public_profile", "email"], from: self) { (result, error) in
+            if error != nil {
+                print("Process error")
+            } else if result?.isCancelled != nil {
+                print("Cancelled")
+            } else {
+                
+                print("Logged in")
+                
+                guard (FBSDKAccessToken.current()) != nil else {return}
+                let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                
+                Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+                    if error != nil {
+                        // ...
+                        return
+                    }
+                    // User is signed in
+                    UserServices.loginWithFacebook(sender: self, completion: { (user) in
+                        if user != nil{
+                            User.setCurrent(user!, writeToUserDefaults: true)
+                            self.performSegue(withIdentifier: "client", sender: nil)
+                        }
+                    })
+                }
+            }
+        }
+        
+    
+    }
 }
+
+
+
+/// authenticate with google
+extension LoginViewController: GIDSignInUIDelegate{
+    
+    
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        // ...
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        
+        
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        // ...
+        
+        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+            if error == nil {
+                self.presentAlert(title: "Login Error", message: "coun't register please try again!!!")
+                return
+            }
+            // User is signed in
+            // register user
+            UserServices.loginWithGoogle(googleUser: user, completion: { (user) in
+                if user != nil{
+                    self.performSegue(withIdentifier: "client", sender: nil)
+                }
+                else{
+                    self.presentAlert(title: "Login Error", message: "coun't register please try again!!!")
+                }
+            })
+        }
+    }
+    
+}
+
+// - Mark: Auth with Facebook
+
+extension LoginViewController: FBSDKLoginButtonDelegate{
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        guard (FBSDKAccessToken.current()) != nil else {return}
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        
+        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+            if error != nil {
+                // ...
+                return
+            }
+            // User is signed in
+            UserServices.loginWithFacebook(sender: self, completion: { (user) in
+                if user != nil{
+                    User.setCurrent(user!, writeToUserDefaults: true)
+                    self.performSegue(withIdentifier: "client", sender: nil)
+                }
+            })
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

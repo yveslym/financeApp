@@ -37,6 +37,7 @@
                         <outlet property="backToLoginButton" destination="Lq9-oL-4Ez" id="xV7-Om-M5x"/>
                         <outlet property="backToRegisterButton" destination="jFY-91-89O" id="y8m-0p-h0R"/>
                         <outlet property="facebookSignUpButton" destination="IoJ-WO-gsu" id="QUj-wL-ztN"/>
+                        <outlet property="googleLoginButton" destination="eNP-hH-efr" id="Df3-Bk-tca"/>
                         <outlet property="loginButton" destination="odX-tS-dqG" id="4DS-SZ-VXF"/>
                         <outlet property="loginEmail" destination="dI5-cs-vKn" id="0Oy-mU-XvT"/>
                         <outlet property="loginPassword" destination="HRo-4h-B2H" id="ozI-8I-CmL"/>
@@ -179,8 +180,11 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-facebook" translatesAutoresizingMaskIntoConstraints="NO" id="f9j-iY-jNl">
                                                     <rect key="frame" x="43.5" y="42.5" width="87" height="48"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IoJ-WO-gsu" customClass="FBSDKButton">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IoJ-WO-gsu">
                                                     <rect key="frame" x="0.0" y="0.0" width="174.5" height="95.5"/>
+                                                    <connections>
+                                                        <action selector="facebookButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f6y-15-EQk"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -282,6 +286,9 @@
                                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNP-hH-efr">
                                                     <rect key="frame" x="0.0" y="0.0" width="188.5" height="95"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <connections>
+                                                        <action selector="googleButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OVN-Tl-7Il"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -529,7 +536,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NO2-p7-g8N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-777" y="-415"/>
+            <point key="canvasLocation" x="940" y="-188"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="HEY-Bu-miS">
