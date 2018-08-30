@@ -78,7 +78,7 @@ class LoginViewController: UIViewController {
             self.loginView.frame.origin.y = -loginY
             self.registerView.frame.origin.y = self.loginView.frame.maxY
         }
-          UIView.animate(withDuration: 0.7, delay: 0, options: [.curveEaseOut,.curveEaseIn], animations: animation, completion: nil)
+          UIView.animate(withDuration: 0.5, delay: 0, options: [.transitionCrossDissolve], animations: animation, completion: nil)
         backToLoginButton.isEnabled = false
         backToRegisterButton.isEnabled = true
     }
@@ -88,7 +88,7 @@ class LoginViewController: UIViewController {
             self.loginView.frame.origin.y = 0
             self.registerView.frame.origin.y = self.loginView.frame.maxY
         }
-      UIView.animate(withDuration: 0.7, delay: 0, options: [.curveEaseIn, .curveEaseOut], animations: animation, completion: nil)
+      UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseIn, .curveEaseOut], animations: animation, completion: nil)
         backToLoginButton.isEnabled = true
         backToRegisterButton.isEnabled = false
     }
@@ -127,8 +127,38 @@ class LoginViewController: UIViewController {
                 }
             }
         }
+    }
+    @IBAction func loginButtonTapped(_ sender: Any){
+        let email = loginEmail.text
+        let password = loginPassword.text
+        if (email?.count)! > 4 && (password?.count)! > 4 {
+            
+            UserServices.loginWithEmail(password!, email: email!, signUpType: .login) { (usr) in
+                if let usr = usr{
+                User.setCurrent(usr)
+                // open next page
+                }
+                else{
+                    print("no user")
+                }
+            }
+        }
+    }
+    @IBAction func registerButtonTapped(_ sender: Any){
+        let email = registerEmail.text
+        let password = registerPassword.text
+        let name = registerFullName.text
+        let user = User(name: name!, email: email!)
         
-    
+        UserServices.loginWithEmail(password, email: email!, user: user, signUpType: .register) { (user) in
+            if let user = user{
+                User.setCurrent(user)
+            }
+            else{
+                // send error message
+            }
+        }
+        
     }
 }
 
@@ -145,6 +175,8 @@ extension LoginViewController: GIDSignInUIDelegate{
             print(error.localizedDescription)
             return
         }
+        
+        
         
         
         guard let authentication = user.authentication else { return }
@@ -202,6 +234,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate{
         
     }
 }
+
 
 
 

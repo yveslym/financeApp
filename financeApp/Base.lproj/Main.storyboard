@@ -162,6 +162,9 @@
                                             <state key="normal" title="Login" backgroundImage="Rectangle 4">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
+                                            <connections>
+                                                <action selector="loginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gzg-iI-RJS"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -480,6 +483,9 @@
                                             <state key="normal" title="Sign up" backgroundImage="Rectangle 4">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
+                                            <connections>
+                                                <action selector="registerButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dui-Co-aPM"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>

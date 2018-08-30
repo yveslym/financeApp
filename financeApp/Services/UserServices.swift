@@ -17,20 +17,17 @@ struct UserServices{
     // method to create new user
     static func create(user: User, completion: @escaping(User?)->()){
         
-        InstanceID.instanceID().instanceID { (result, _) in
-        user.deviceToken = result?.token
-        
-        let authUser = Auth.auth().currentUser
-      
-        let ref = Database.database().reference().child("Users").child((authUser?.uid)!)
-        ref.setValue(user.toDictionary()) { (error, _) in
-            if error != nil{
-                return completion(nil)
+            let authUser = Auth.auth().currentUser
+            
+            let ref = Database.database().reference().child("Users").child((authUser?.uid)!)
+            ref.setValue(user.toDictionary()) { (error, _) in
+                if error != nil{
+                    return completion(nil)
+                }
+                return completion(user)
             }
-            return completion(user)
-        }
+        
     }
-}
     // method to retrieve user from firebase
     static func show(completion: @escaping(User?)-> ()){
         let uid = Auth.auth().currentUser?.uid
@@ -48,16 +45,16 @@ struct UserServices{
     /// method to add google user to firrebase
     static func loginWithGoogle(googleUser: GIDGoogleUser, completion: @escaping(User?) -> ()){
         let profile = googleUser.profile
-        let user = User(fn: (profile?.givenName)!, ln: (profile?.familyName)!, un: (profile?.name)!, deviceToken: "", accountType: "client", email: (profile?.email)!)
+        let user = User(name: (profile?.name!)!, email: (profile?.email!)!)
         if (profile?.hasImage)!{
-        user.profileUrl = profile?.imageURL(withDimension: 300).absoluteString
+            user.profileUrl = profile?.imageURL(withDimension: 300).absoluteString
         }
         
         show { (existingUser) in
             if existingUser == nil{
                 create( user: user) { (created) in
                     if (created != nil){
-                       return completion(created!)
+                        return completion(created!)
                     }
                     else{
                         print("couldn't create user")
@@ -71,14 +68,40 @@ struct UserServices{
         }
     }
     
-    static func loginWithEmail(_ password: String, user: User, completion: @escaping(User) -> ()){
+    /// method to register or login user with email and password
+    static func loginWithEmail(_ password: String? = nil, email: String? = nil, user: User? = nil, signUpType: SignUpType, completion: @escaping(User?) -> ()){
+        switch signUpType{
         
-        Auth.auth().signIn(withEmail: user.email, password: password) { (result, error) in
+        case .login:
+            Auth.auth().signIn(withEmail: email!, password: password!) { (result, error) in
+                if error == nil{
+                    show(completion: { (usr) in
+                        if usr == nil{
+                            return completion(usr)
+                        }
+                        else{
+                            return completion(nil)
+                        }
+                    })
+                }
+                else{
+                    print(error?.localizedDescription ?? "")
+                    completion(nil)
+                }
+            }
+            
+        case .register:
+            Auth.auth().createUser(withEmail: email!, password: password!) { (result, error) in
             if error == nil{
-                Auth.auth().currentUser?.sendEmailVerification(completion: nil)
-                create(user: user, completion: { (usr) in
-                    completion(usr!)
+                create(user: user!, completion: { (user) in
+                    if user != nil{
+                        return completion(user)
+                    }
+                    else{
+                        return completion(nil)
+                    }
                 })
+            }
             }
         }
     }
@@ -91,7 +114,7 @@ struct UserServices{
     static func sendEmailForgetPassword(_ password: String, email: String, completion: @escaping() ->()){
         let actionCodeSettings =  ActionCodeSettings.init()
         actionCodeSettings.handleCodeInApp = true
-       
+        
         actionCodeSettings.url =
             URL(string: "financeapp-d1c74.firebaseapp.com/?email=%@\(email)")
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
@@ -103,8 +126,8 @@ struct UserServices{
             }
         }
     }
-    
-    static func emailVerification(email: String, completion: @escaping(Bool) ->()){
+    /// method to send email verification
+    private static func emailVerification(email: String, completion: @escaping(Bool) ->()){
         
         Auth.auth().useAppLanguage()
         Auth.auth().currentUser?.sendEmailVerification { (error) in
@@ -112,7 +135,10 @@ struct UserServices{
                 completion(true)
             }
         }
-       
+    }
+    
+    static func signUpWithEmail(password: String, user: User,completion: @escaping(User)->()){
+        
     }
     
     static func loginWithFacebook(sender: UIViewController,completion: @escaping(User?)->()){
@@ -123,11 +149,11 @@ struct UserServices{
                     return completion(nil)
                     
                 }
-             
-                let user = User(fn: profile.firstName, ln: profile.lastName, un: profile.name, deviceToken: "", accountType: "client", email: authUser.email!, profileUrl: profile.imageURL(for: .square, size: CGSize(width: 100, height: 100)).absoluteString)
+                
+                let user = User(name: profile.name, email: authUser.email!, profileUrl: profile.imageURL(for: .square, size: CGSize(width: 100, height: 100)).absoluteString)
                 
                 /// fetch user from database
-                show(completion: { (databaseUser) in
+                show(completion: {(databaseUser) in
                     if let databaseUser = databaseUser{
                         completion(databaseUser)
                     }
@@ -144,13 +170,15 @@ struct UserServices{
                         })
                     }
                 })
-                
             }
         })
     }
-    
 }
 
+enum SignUpType: String{
+    case login
+    case register
+}
 extension JSONEncoder {
     func encodeJSONObject<T: Encodable>(_ value: T, options opt: JSONSerialization.ReadingOptions = []) throws -> Any {
         let data = try encode(value)

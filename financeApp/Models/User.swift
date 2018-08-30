@@ -9,11 +9,7 @@
 import Foundation
 
 class User: Codable{
-    let firstName: String
-    let lastName: String
-    let userName: String
-    var deviceToken: String?
-    let accountType: String
+    let name: String
     let email: String
     var profileUrl : String?
     
@@ -45,25 +41,18 @@ class User: Codable{
     
 
     
-    init(fn: String, ln: String, un: String, deviceToken: String, accountType: String, email: String, profileUrl: String? = nil){
-        self.firstName = fn
-        self.lastName = ln
-        self.deviceToken = deviceToken
-        self.accountType = accountType
-        self.userName = un
+    init(name: String, email: String, profileUrl: String? = nil){
+        self.name = name
         self.email = email
         if let url = profileUrl{
             self.profileUrl = url
         }
     }
     func toDictionary() -> [String: Any]{
-        return["firstName": firstName,
-               "lastName": lastName,
-               "deviceToken": deviceToken ?? "",
-            "accountType":accountType,
-            "userName":userName,
+        return["name": name,
             "profileUrl":profileUrl ?? "",
-            "email":email]
+            "email":email
+            ]
     }
 }
 
