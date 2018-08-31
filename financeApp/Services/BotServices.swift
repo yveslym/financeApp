@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import ApiAI
+import SwiftyJSON
 
 struct BotServices{
     
@@ -49,7 +50,7 @@ struct BotServices{
                 
                 apiAIRequest(question: message.content, completion: { (word) in
                     guard let word = word else {return completion(nil)}
-                NLPQueryFromUserEntry(word: word, completion: { (trans, word) in
+                NLPQueryFromUserEntry(word: word, completion: { (trans, account,word) in
                     
                     if trans != nil{
                     botSentMessage(messageType: .transaction, transaction: trans!, completion: { (message) in
@@ -60,7 +61,13 @@ struct BotServices{
                     }
                     else if word != nil {
                         botSentMessage(messageType: .sendTextMessage, message: word! ,completion: { (message) in
-                            completion(message)
+                            return completion(message)
+                        })
+                    }
+                    else if account != nil{
+                        botSentMessage(messageType: .balance, account: account!, completion: { (message) in
+                            //print (sent)
+                            return completion(message)
                         })
                     }
                 })
@@ -99,22 +106,25 @@ struct BotServices{
     }
     
     /// method to query data from database based on AI answer
-     static func NLPQueryFromUserEntry(word: String, completion: @escaping(Transaction?, String?)->()){
+     static func NLPQueryFromUserEntry(word: String, completion: @escaping(Transaction?,[Account]?, String?)->()){
         switch word{
         case "last transaction":
             getLastTransaction { (trans) in
                 if trans != nil {
-                    return completion(trans,nil)
+                    return completion(trans,nil, nil)
                 }else{
-                    return completion(nil,nil)
+                    return completion(nil,nil, nil)
                 }
             }
-        case "current balance": return completion(nil,nil)
-        default: return completion(nil,word)
+        case "current balance":
+            plaidServices.retrieveAccount { (account) in
+                completion(nil,account,nil)
+            }
+        default: return completion(nil,nil, word)
         }
     }
     /// method to respond from user question
-    private static func botSentMessage(messageType: MessageType, message: String? = nil,transaction: Transaction? = nil, balance: Balance? = nil, completion: @escaping (Message?)->()){
+    private static func botSentMessage(messageType: MessageType, message: String? = nil,transaction: Transaction? = nil, account: [Account]? = nil, completion: @escaping (Message?)->()){
         
         switch messageType{
             
@@ -126,9 +136,9 @@ struct BotServices{
                 return completion(message)
             }
         case .transaction:
-            let place = transaction?.address
+          
             let name = transaction?.name
-            let content = " \(name ?? "") was your last transaction of \(transaction?.amount ?? 00), at \(place ?? "none place provided")"
+            let content = "  \(name ?? "") was your last transaction of \(transaction?.amount ?? 00)"
             let message = Message(time: Date().toString(), content: content, msgId: "", type: "text", sentBy: "bot")
             MessageServices.create(message: message) { (message) in
                 return completion(message)
@@ -136,33 +146,67 @@ struct BotServices{
             
             
         
-        case .balance: break
-            
+        case .balance:
+            let dg = DispatchGroup()
+            var message = [Message]()
+        if let account = account{
+            account.forEach { (account) in
+               // dg.enter()
+                let name = account.name
+                let number = account.accNumber
+                let balance = account.availableBalance
+                let content = ("Your account \(name ?? "no name") ending with \(number ?? "0"), the banace is \(balance) ")
+                let msg = Message(time: Date().toString(), content: content, msgId: "", type: "text", sentBy: "bot")
+            message.append(msg)
+            }
+            message.forEach { (msg) in
+                dg.enter()
+                MessageServices.create(message: msg) { (message) in
+                   dg.leave()
+                }
+                dg.notify(queue: .global(), execute: {
+                    completion(message.first)
+                })
+                }
+            }
         }
     }
     
     /// method to get last transaction
-    private static func getLastTransaction(completion:@escaping(Transaction?)->()){
+     static func getLastTransaction(completion:@escaping(Transaction?)->()){
         let ref = Database.database().reference().child("Bank").child((Auth.auth().currentUser?.uid)!)
         ref.observeSingleEvent(of: .value) { (snapshot) in
             if snapshot.exists(){
-             let banks = decodeBank(snapshot: snapshot)
-                var accounts = [Account]()
-                banks.forEach({accounts += $0.accounts!})
-                let trans = Transaction.getAllTransactionOfAllAcount(accounts: accounts)
-                let lastTrans = Transaction.lastTransaction(trans: trans)
+                 var transactions = [Transaction]()
+                snapshot.children.forEach({ (snapshot) in
+                
+                let snapshot = snapshot as! DataSnapshot
+                let json = JSON(snapshot.value!)
+               
+                let accountJson = json["account"].arrayValue
+                accountJson.forEach({
+                    let transJson = $0["transactions"].arrayValue
+                    transJson.forEach({
+                        
+                        let transaction = try! JSONDecoder().decode(Transaction.self, withJSONObject: $0.object)
+                        transactions.append(transaction)
+                    })
+                })
+              })
+                let lastTrans = Transaction.lastTransaction(trans: transactions)
+                
                 completion(lastTrans)
+
             }
             else{
                 completion(nil)
             }
-            
         }
     }
     /// method to get current balance
-    static func getCurrentBalance(completion:@escaping(Transaction)->()){
-        
-    }
+    
+   
+    
 
     private static func decodeBank(snapshot: DataSnapshot) -> [Bank]{
         var banks = [Bank]()

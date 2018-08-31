@@ -45,6 +45,7 @@ class MessageViewController: UIViewController {
         self.delegate = self
         self.botObserveMessage()
         self.userObserveMessage()
+        self.getMyBankCard()
     }
     
     override func didReceiveMemoryWarning() {
@@ -83,7 +84,7 @@ class MessageViewController: UIViewController {
     
     @objc func respondToSwipeGestureDown(gesture: UIGestureRecognizer){
         UIView.animate(withDuration: 1) {
-            self.noCardView.frame.origin.y = -30
+            self.noCardView.frame.origin.y = -10
         }
     }
     
@@ -99,7 +100,7 @@ class MessageViewController: UIViewController {
     }
     
     
-    func observeIncomingMessage(completion: @escaping(Message)->()){}
+    
     
     func botObserveMessage(){
         BotServices.botObserverMessage { (sent) in
@@ -113,6 +114,16 @@ class MessageViewController: UIViewController {
                 self.messages.insert(msg, at: 0)
             }
         }
+    }
+    /// method to retieve all bank Account
+    func getMyBankCard(){
+        plaidServices.retrieveAccount { (accounts) in
+            if let accounts = accounts{
+                self.view.addSubview(self.cardView)
+                self.cards = accounts
+            }
+        }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         

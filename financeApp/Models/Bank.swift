@@ -50,15 +50,17 @@ class Bank:  Codable {
         
         self.id = try instutitionContenair.decodeIfPresent(String.self, forKey: .institution_id)
         self.name = try instutitionContenair.decodeIfPresent(String.self, forKey: .name)
+        
     }
     
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
         let account = self.accounts?.compactMap({$0.toDictionary()})
-        
-        let json = ["id":id,
-                "name":name,
-                "linkSessionId":linkSessionId,
-                "requestId":requestId,
+        let institution = ["institution_id":id!,
+                            "name":name!]
+        let json = [
+            "institution": institution,
+                "linkSessionId":linkSessionId!,
+                "requestId":requestId!,
                 "itemAccess":itemAccess?.toDictionary(),
             "account":account] as! [String:Any]
         //let data = try! JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)//JSONEncoder().encode(self)

@@ -35,15 +35,17 @@ class Account: Codable {
 //        let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
 //        return json
         let trans = self.transactions.compactMap({$0.toDictionary()})
-        let json = ["id":id,
-                    "currentBalance":currentBalance,
-                    "availableBalance":availableBalance,
+        let balances = [ "current":currentBalance,
+                         "available":availableBalance,
+                         "limit":limit!] as [String : Any]
+        let json = ["account_id":id,
+                    "balances":balances,
                     "name":name,
-                    "accNumber":accNumber,
+                    "mask":accNumber,
                     "transactions":trans,
                     "subtype":subtype,
-                    "officialName":officialName,
-                    "limit":limit] as [String : Any]
+                    "official_name":officialName
+                   ] as [String : Any]
         return json
     }
     

@@ -12,15 +12,15 @@ import SwiftyJSON
 class Transaction: Codable {
 
    var accountID: String? = ""
-   var address: String? = ""
+  
    var amount: Double
     var category: String? = ""
-   var city: String? = ""
+   
    var date: String? = ""
    var name: String? = ""
-   var state: String? = ""
+  
     var types: String? = ""
-   var zipCode: String? = ""
+  
    //var account: Account?
    var id: String? = ""
     var dayName: String? = ""
@@ -64,37 +64,13 @@ required init(from decoder: Decoder) throws {
         self.date = try contenaire.decodeIfPresent(String.self, forKey: .date) ?? nil
         self.id = try contenaire.decodeIfPresent(String.self, forKey: .transaction_id) ?? nil
         self.amount = (try contenaire.decodeIfPresent(Double.self, forKey: .amount) ?? nil)!
-        let category = try contenaire.decodeIfPresent([String].self, forKey: .category) ?? nil
-        if category != nil{
-            if category!.count > 1{
-                if !category![0].isEmpty{
-                self.category = category?[1] ?? "Other"
-                self.types = category?[0] ?? "Other"
-                }
-                else{
-                    self.category =  "Other"
-                    self.types =  "Other"
-                }
-               
-            }
-            else{
-                self.category = category?[0]
-            }
-        }
-        let locationContenair = try contenaire.nestedContainer(keyedBy: TransactionKey.AddressKey.self, forKey: .location)
-
-        self.city = try locationContenair.decodeIfPresent(String.self, forKey: .city) ?? ""
-        self.state = try locationContenair.decodeIfPresent(String.self, forKey: .state) ?? ""
-        self.address = try locationContenair.decodeIfPresent(String.self, forKey: .address) ?? ""
-        self.zipCode = try locationContenair.decodeIfPresent(String.self, forKey: .zip) ?? ""
-
+    
         let todate = self.date?.toDate()
         self.dayName = todate?.dayOfWeak()
         self.monthName = todate?.monthName()
 
     }
 }
-
 
 struct transactionOperation: Decodable{
     var transactions:[Transaction]
