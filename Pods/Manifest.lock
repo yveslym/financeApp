@@ -137,6 +137,7 @@ PODS:
   - Plaid (1.1.10)
   - Protobuf (3.6.1)
   - SnapKit (4.0.0)
+  - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
   - ApiAI
@@ -152,6 +153,7 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - Plaid
   - SnapKit (~> 4.0.0)
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -182,6 +184,7 @@ SPEC REPOS:
     - Plaid
     - Protobuf
     - SnapKit
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   ApiAI: d4b49d3736f33ce6f3ef66dc33c0e0fccb23579e
@@ -211,7 +214,8 @@ SPEC CHECKSUMS:
   Plaid: 12dcbdb591ad64f015162964f4b3b7fc2c5fb37d
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 1ad93477feafd0d7eb950774fd805ebfd3e0b686
+PODFILE CHECKSUM: b97fd852e5e1e451018d5bb913439875d952367e
 
 COCOAPODS: 1.5.3

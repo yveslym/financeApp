@@ -18,7 +18,7 @@ class Account: Codable {
     var name: String? = ""
     var accNumber: String? = ""
     var transactions = [Transaction]()
-    var balance: Balance?
+    //var balance: Balance?
     var subtype: String? = ""
     var officialName: String? = ""
     var limit: String? = ""
@@ -27,10 +27,23 @@ class Account: Codable {
         availableBalance = 0.0
         
     }
-    
+    func toDic(){
+       
+    }
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
-        let data = try! JSONEncoder().encode(self)
-        let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
+//        let data = try! JSONEncoder().encode(self)
+//        let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
+//        return json
+        let trans = self.transactions.compactMap({$0.toDictionary()})
+        let json = ["id":id,
+                    "currentBalance":currentBalance,
+                    "availableBalance":availableBalance,
+                    "name":name,
+                    "accNumber":accNumber,
+                    "transactions":trans,
+                    "subtype":subtype,
+                    "officialName":officialName,
+                    "limit":limit] as [String : Any]
         return json
     }
     
@@ -52,11 +65,11 @@ class Account: Codable {
         self.name = try contenaire.decode(String.self, forKey: .name)
         self.id = try contenaire.decode(String.self, forKey: .account_id)
         self.accNumber = try contenaire.decode(String.self, forKey: .mask)
-        self.subtype = try contenaire.decodeIfPresent(String.self, forKey: .subtype)
+        self.subtype = try contenaire.decodeIfPresent(String.self, forKey: .subtype) ?? ""
         
-        self.officialName = try contenaire.decodeIfPresent(String.self, forKey: .official_name)
+        self.officialName = try contenaire.decodeIfPresent(String.self, forKey: .official_name) ?? ""
         
-        self.currentBalance = try balanceContenaire.decodeIfPresent(Double.self, forKey: .current)!
+        self.currentBalance = try balanceContenaire.decodeIfPresent(Double.self, forKey: .current) ?? 00
         self.availableBalance = try! balanceContenaire.decodeIfPresent(Double.self, forKey: .available) ?? 0.0
         
     }

@@ -15,6 +15,7 @@ import Foundation
  
     var current: Double
     var available: Double
+    var accountId: String? = ""
     
     init(){
         current = 0.0

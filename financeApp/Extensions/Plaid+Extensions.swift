@@ -69,12 +69,13 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
                             allTransaction?.forEach({ (transaction) in
                                 bank.accounts?.forEach({ (account) in
                                     if transaction.accountID == account.id{
-                                        transaction.account = account
+                                        //transaction.account = account
                                         account.transactions.append(transaction)
                                     }
                                 })
                             })
                             plaidOperation.getBalance(with: bank, completion: { (balance) in
+                                //bank.balanaces = balance
                                 plaidServices.createBank(bank, completion: {
                                     print("bank uploaded")
                                 })

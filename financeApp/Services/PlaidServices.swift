@@ -34,6 +34,16 @@ struct plaidServices{
             }
         }
     }
+    static func uploadAccount(_ account: Account, completion: @escaping()->()){
+        let ref = Database.database().reference().child("Account").child((Auth.auth().currentUser?.uid)!).child(account.id!)
+        ref.setValue(account.toDictionary()) { (error, _) in
+            if error == nil{
+                
+                // save last transaction
+                completion()
+            }
+        }
+    }
     
     
 }

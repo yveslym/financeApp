@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class plaidOperation{
     
@@ -34,11 +35,24 @@ class plaidOperation{
 //    static func identity(with accessToken: String, completion: ()){
 //    }
 
-    static func getBalance(with bank: Bank, completion: @escaping (Balance?)-> Void){
+    static func getBalance(with bank: Bank, completion: @escaping ([Balance]?)-> Void){
     
         Networking.network(bank: bank, route: .balance, apiHost: .development) { (data) in
-            let balance = try! JSONDecoder().decode(Balance.self, from: data!)
-            return completion(balance)
+           
+            let json = try! JSON(data: data!)
+            let accounts = json["accounts"].arrayValue
+            var balances = [Balance]()
+            
+            accounts.forEach({ (account) in
+                let balance = Balance()
+                let jsonBalance = account["balances"]
+               balance.accountId = account["account_id"].stringValue
+                balance.current = jsonBalance["current"].doubleValue
+                balance.available = jsonBalance["available"].doubleValue
+                balances.append(balance)
+            })
+            
+            return completion(balances)
         }
     
     }

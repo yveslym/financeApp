@@ -34,13 +34,13 @@ class Networking{
         case .transactions:
             request.httpBody = route.jsonBody(client_id: clientId, secret: secret, access_token: bank?.itemAccess?.accessToken, startDate: date?[0], endDate: date?[1])
         case .auth:
-            request.httpBody = route.jsonBody(client_id: clientId, secret: secret, access_token: bank?.access_token)
+            request.httpBody = route.jsonBody(client_id: clientId, secret: secret, access_token:bank?.itemAccess?.accessToken)
         case .identity:
-             request.httpBody = route.jsonBody(client_id: clientId, secret: secret, access_token: bank?.access_token)
+             request.httpBody = route.jsonBody(client_id: clientId, secret: secret, access_token: bank?.itemAccess?.accessToken)
         case .income:
-             request.httpBody = route.jsonBody(client_id: clientId, secret: secret, access_token: bank?.access_token)
+             request.httpBody = route.jsonBody(client_id: clientId, secret: secret, access_token: bank?.itemAccess?.accessToken)
         case .balance:
-            request.httpBody = route.jsonBody(bank: bank, client_id: clientId, secret: secret, access_token: bank?.access_token)
+            request.httpBody = route.jsonBody(bank: bank, client_id: clientId, secret: secret, access_token: bank?.itemAccess?.accessToken)
         case .exchangeToken:
             request.httpBody = route.jsonBody(client_id: clientId, secret: secret, public_token: public_token)
         case .accounts:

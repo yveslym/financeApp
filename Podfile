@@ -18,6 +18,7 @@ target 'financeApp' do
   pod 'KeychainSwift'
   pod 'SnapKit', '~> 4.0.0'
   pod 'ApiAI'
+   pod 'SwiftyJSON', '~> 4.0'
   # Pods for financeApp
 
 

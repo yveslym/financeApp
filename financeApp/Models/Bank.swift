@@ -11,13 +11,14 @@ import Foundation
 
 class Bank:  Codable {
     
-    var access_token: String?
+    
     var id: String? = ""
     var name: String? = ""
     var linkSessionId: String? = ""
     var requestId: String? = ""
     var accounts: [Account]?
     var itemAccess: ItemAccess?
+    //var balanaces: [Balance]?
 
     init (){
         
@@ -52,8 +53,16 @@ class Bank:  Codable {
     }
     
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
-        let data = try! JSONEncoder().encode(self)
-        let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
+        let account = self.accounts?.compactMap({$0.toDictionary()})
+        
+        let json = ["id":id,
+                "name":name,
+                "linkSessionId":linkSessionId,
+                "requestId":requestId,
+                "itemAccess":itemAccess?.toDictionary(),
+            "account":account] as! [String:Any]
+        //let data = try! JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)//JSONEncoder().encode(self)
+        //let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
         return json
     }
 }

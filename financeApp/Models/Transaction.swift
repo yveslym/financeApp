@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftyJSON
 
 
 class Transaction: Codable {
@@ -21,7 +21,7 @@ class Transaction: Codable {
    var state: String? = ""
     var types: String? = ""
    var zipCode: String? = ""
-   var account: Account?
+   //var account: Account?
    var id: String? = ""
     var dayName: String? = ""
     var monthName: String? = ""
@@ -32,6 +32,7 @@ class Transaction: Codable {
     }
     
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
+       
         let data = try! JSONEncoder().encode(self)
         let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
         return json
