@@ -33,7 +33,7 @@ struct MessageServices{
         }
     }
     
-    static func fetchMessages(groupKey: String, convoKey: String, completion: @escaping([Message]?)->()){
+    static func fetchMessages(completion: @escaping([Message]?)->()){
          let user = Auth.auth().currentUser
         let ref = Database.database().reference().child("Message").child((user?.uid)!)
         ref.observeSingleEvent(of: .value) { (snapshot) in

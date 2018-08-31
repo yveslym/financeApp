@@ -53,20 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
-        // setup the view
+       
         
-        if UserDefaults.standard.value(forKey: "current") != nil{
-            
-            // check if it's a liner account
-            if isAlinner(){
-                // go to linner view
-            }
-            else{
-                let mainVC = UIStoryboard(name: "Client", bundle: nil).instantiateInitialViewController()
-                window?.rootViewController = mainVC
-                window?.makeKeyAndVisible()
-            }
-        }
+       
         
         // handle ApiAI
         let configuration = AIDefaultConfiguration()
@@ -75,6 +64,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let apiai = ApiAI.shared()
         apiai?.configuration = configuration
         
+        // handle user persistance
+        
+        if UserDefaults.standard.value(forKey: "current") != nil{
+            
+            let mainVC = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController()
+            window?.rootViewController = mainVC
+            window?.makeKeyAndVisible()
+            
+        }
         
         return true
     }
@@ -164,7 +162,7 @@ extension AppDelegate: GIDSignInDelegate{
             UserServices.loginWithGoogle(googleUser: user, completion: { (user) in
                 if let user = user{
                     User.setCurrent(user, writeToUserDefaults: true)
-                    let vc = UIStoryboard(name: "Client", bundle: nil).instantiateInitialViewController()
+                    let vc = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController()
                     self.window?.rootViewController = vc
                     self.window?.makeKeyAndVisible()
                 }

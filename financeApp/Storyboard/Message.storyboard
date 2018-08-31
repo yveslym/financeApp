@@ -136,6 +136,10 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="02W-Le-VMN" id="9Gf-36-F1H"/>
+                                            <outlet property="delegate" destination="02W-Le-VMN" id="e2N-GQ-s9q"/>
+                                        </connections>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dL9-ow-pGK">
                                         <rect key="frame" x="0.0" y="620.5" width="375" height="46.5"/>
@@ -267,7 +271,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jZD-fB-SUC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1807" y="131"/>
+            <point key="canvasLocation" x="1476" y="131"/>
         </scene>
     </scenes>
     <resources>

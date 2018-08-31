@@ -39,14 +39,26 @@ struct BotServices{
     static func botObserverMessage (completion: @escaping(Bool?)->()){
         MessageServices.observeIncomeMessage { (message) in
             if message.sentBy != "bot"{
-                NLPQueryFromUserEntry(word: message.content, completion: { (trans) in
+                apiAIRequest(question: message.content, completion: { (word) in
+                    
+                    guard let word = word else {return completion(nil)}
+                NLPQueryFromUserEntry(word: word, completion: { (trans, word) in
                     
                     if trans != nil{
                     botSentMessage(messageType: .transaction, transaction: trans!, completion: { (sent) in
                         print (sent)
+                        return completion(true)
+                        })
+                       
+                    }
+                    else if word != nil {
+                        botSentMessage(messageType: .sendTextMessage, completion: { (sent) in
+                            completion(true)
                         })
                     }
                 })
+            })
+                
             }else{
                 return completion(nil)
             }
@@ -78,36 +90,39 @@ struct BotServices{
     }
     
     /// method to query data from database based on AI answer
-    private static func NLPQueryFromUserEntry(word: String, completion: @escaping(Transaction?)->()){
+    private static func NLPQueryFromUserEntry(word: String, completion: @escaping(Transaction?, String?)->()){
         switch word{
         case "last transaction":
             getLastTransaction { (trans) in
                 if trans != nil {
-                    completion(trans)
+                    return completion(trans,nil)
                 }else{
-                    completion(nil)
+                    return completion(nil,nil)
                 }
             }
-        case "current balance": return completion(nil)
-        default: return completion(nil)
+        case "current balance": return completion(nil,nil)
+        default: return completion(nil,word)
         }
     }
     /// method to respond from user question
-    private static func botSentMessage(messageType: MessageType, transaction: Transaction? = nil, balance: Balance? = nil, completion: @escaping (Bool)->()){
+    private static func botSentMessage(messageType: MessageType, message: String? = nil,transaction: Transaction? = nil, balance: Balance? = nil, completion: @escaping (Bool)->()){
         
         switch messageType{
             
         case .recievedTextMessage: break
             
-        case .sendTextMessage: break
-            
+        case .sendTextMessage:
+            let msg = Message(time: Date().toString(), content: message!, msgId: "", type: "text", sentBy: "bot")
+            MessageServices.create(message: msg) {
+                return completion(true)
+            }
         case .transaction:
             let place = transaction?.address
             let name = transaction?.name
             let content = " \(name ?? "") was your last transaction of \(transaction?.amount ?? 00), at \(place ?? "none place provided")"
             let message = Message(time: Date().toString(), content: content, msgId: "", type: "text", sentBy: "bot")
             MessageServices.create(message: message) {
-                completion(true)
+                return completion(true)
             }
             
             

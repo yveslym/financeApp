@@ -57,6 +57,13 @@ class MessageViewController: UIViewController {
             }
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        MessageServices.fetchMessages { (msg) in
+            if let msg = msg{
+                self.messages = msg
+            }
+        }
+    }
 }
 
 // - Mark: TableView lyfe cicle
