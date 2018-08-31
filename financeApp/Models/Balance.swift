@@ -11,10 +11,15 @@ import Foundation
 
 
 
- class Balance: Decodable {
+ class Balance: Codable {
 
     var current: Double
     var available: Double
+    
+    init(){
+        current = 0.0
+        available = 0.0
+    }
     enum BalanceKey: String, CodingKey{
         case current, available
     }

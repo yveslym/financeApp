@@ -10,10 +10,12 @@ import Foundation
 import CoreData
 
 
-class ItemAccess:  Decodable {
+class ItemAccess:  Codable {
     
     var accessToken: String?
     var itemId: String?
+    
+    init(){}
     
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
         

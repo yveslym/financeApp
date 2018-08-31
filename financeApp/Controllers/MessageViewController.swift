@@ -11,6 +11,20 @@ import UIKit
 class MessageViewController: UIViewController {
     
     @IBOutlet weak var messageTableView: UITableView!
+    @IBOutlet weak var cardCollectionView: UICollectionView!
+    
+    @IBOutlet var noCardView: UIView!
+    @IBOutlet var cardView: UIView!
+     weak var delegate : plaidDelegate!
+    
+    var cards = [Account](){
+        didSet{
+            DispatchQueue.main.async {
+                self.cardCollectionView.reloadData()
+            }
+        }
+    }
+    
     var messages = [Message](){
         didSet{
             
@@ -28,7 +42,7 @@ class MessageViewController: UIViewController {
         messageTableView.transform = CGAffineTransform(rotationAngle: -(CGFloat)(Double.pi))
         messageTableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, messageTableView.frame.size.width - 0.8)
 
-
+        self.delegate = self
         self.botObserveMessage()
         self.userObserveMessage()
     }
@@ -54,6 +68,11 @@ class MessageViewController: UIViewController {
         }
               //})
     }
+    @IBAction func addCardButtonTapped(_ sender: Any) {
+       
+         self.delegate.presentPlaidLink()
+        
+    }
     
     
     func observeIncomingMessage(completion: @escaping(Message)->()){}
@@ -72,6 +91,14 @@ class MessageViewController: UIViewController {
         }
     }
     override func viewWillAppear(_ animated: Bool) {
+        
+        if cards.count == 0{
+            view.addSubview(noCardView)
+        }
+        else{
+            view.addSubview(cardView)
+        }
+        
         MessageServices.fetchMessages { (msg) in
             if let msg = msg{
                 
@@ -124,7 +151,35 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource{
     //        return 0
     //    }
     
+
+}
+
+// - Mark Collection View life cycle
+
+extension MessageViewController: UICollectionViewDataSource, UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cards.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "card", for: indexPath) as! CardCollectionViewCell
+        let user = User.current
+        cell.cardHolder.text = user.name
+        
+        return cell
+    }
     
+    func setUpCardView(){
+        let h = view.frame.height / 6
+        let w = view.frame.width
+        cardView.frame = CGRect(x: 0, y: 0, width: w, height: h)
+        noCardView.frame = CGRect(x: 0, y: 0, width: w, height: h)
+        
+    }
     
 }
+
+extension MessageViewController: plaidDelegate{
+    
+}
+

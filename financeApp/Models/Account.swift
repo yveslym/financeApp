@@ -10,18 +10,23 @@ import Foundation
 
 
 
-class Account: Decodable {
+class Account: Codable {
     
     var id: String?
     var currentBalance: Double
     var availableBalance: Double
     var name: String?
-    var accNumber: String
+    var accNumber: String?
     var transactions = [Transaction]()
     var balance: Balance?
     var subtype: String?
     var officialName: String?
     var limit: String?
+    init(){
+        currentBalance = 0.0
+        availableBalance = 0.0
+        
+    }
     
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
         

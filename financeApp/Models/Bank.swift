@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Bank:  Decodable {
+class Bank:  Codable {
     
     var access_token: String?
     var id: String?
@@ -19,7 +19,9 @@ class Bank:  Decodable {
     var accounts: [Account]?
     var itemAccess: ItemAccess?
 
-
+    init (){
+        
+    }
     enum BankAccountKey: String, CodingKey{
         case institution, accounts, status, request_id, link_session_id, itemAccess,transactions
         enum instutionKey: String, CodingKey{

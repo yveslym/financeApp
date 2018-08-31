@@ -9,7 +9,7 @@ import Foundation
 
 
 
-class Transaction: Decodable {
+class Transaction: Codable {
 
    var accountID: String?
    var address: String?
@@ -27,6 +27,10 @@ class Transaction: Decodable {
     var monthName: String?
     var tag: String?
   
+    init(){
+        amount = 0.0
+    }
+    
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
         
         let data = try! JSONSerialization.data(withJSONObject: self, options: opt)

@@ -44,6 +44,7 @@
 		20E9F86E213888A1006E5A80 /* TextMessageRecievedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E9F86D213888A1006E5A80 /* TextMessageRecievedTableViewCell.swift */; };
 		20E9F87021389526006E5A80 /* Boot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E9F86F21389526006E5A80 /* Boot.swift */; };
 		20E9F87221389754006E5A80 /* BotServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E9F87121389753006E5A80 /* BotServices.swift */; };
+		20E9F87421392CB2006E5A80 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E9F87321392CB2006E5A80 /* CardCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		20E9F86D213888A1006E5A80 /* TextMessageRecievedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageRecievedTableViewCell.swift; sourceTree = "<group>"; };
 		20E9F86F21389526006E5A80 /* Boot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boot.swift; sourceTree = "<group>"; };
 		20E9F87121389753006E5A80 /* BotServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotServices.swift; sourceTree = "<group>"; };
+		20E9F87321392CB2006E5A80 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		2A293E335BB9933849828864 /* Pods_financeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_financeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB1A70996B9258FA990A9B0 /* Pods-financeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-financeApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-financeApp/Pods-financeApp.release.xcconfig"; sourceTree = "<group>"; };
 		2FEA62DC96CD68F095530D9A /* Pods-financeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-financeApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-financeApp/Pods-financeApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				20E9F865213851DA006E5A80 /* MessageTableViewCell.swift */,
 				20E9F86B2138888D006E5A80 /* TextMessageSentTableViewCell.swift */,
 				20E9F86D213888A1006E5A80 /* TextMessageRecievedTableViewCell.swift */,
+				20E9F87321392CB2006E5A80 /* CardCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				205599EE2135DCF500B06AD7 /* Message.swift in Sources */,
 				205599EC2135DC8800B06AD7 /* MessageServices.swift in Sources */,
 				20E9F87221389754006E5A80 /* BotServices.swift in Sources */,
+				20E9F87421392CB2006E5A80 /* CardCollectionViewCell.swift in Sources */,
 				20E9F87021389526006E5A80 /* Boot.swift in Sources */,
 				205599CD2135016800B06AD7 /* Identity.swift in Sources */,
 				20E9F86C2138888D006E5A80 /* TextMessageSentTableViewCell.swift in Sources */,

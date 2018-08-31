@@ -38,7 +38,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E5b-6Z-Vhd">
-                                                            <rect key="frame" x="91" y="22" width="269" height="54.5"/>
+                                                            <rect key="frame" x="71" y="22" width="269" height="54.5"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rectangle 2 Copy 3" translatesAutoresizingMaskIntoConstraints="NO" id="ieK-lC-84l">
                                                                     <rect key="frame" x="0.0" y="0.0" width="269" height="54.5"/>
@@ -79,13 +79,13 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dom-py-Fud">
-                                                            <rect key="frame" x="15" y="11" width="331" height="52"/>
+                                                            <rect key="frame" x="15" y="11" width="311" height="52"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rectangle 2 Copy 4" translatesAutoresizingMaskIntoConstraints="NO" id="pnR-tP-5cu">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="331" height="52"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="311" height="52"/>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey Jervis, I am Sandra, happy to meet you, HOW ARE YOU DOING" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RGn-qu-QT4">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="331" height="52"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="311" height="52"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -239,12 +239,116 @@
                         <viewLayoutGuide key="safeArea" id="9ut-Wq-byO"/>
                     </view>
                     <connections>
+                        <outlet property="cardCollectionView" destination="p3f-Nj-WK7" id="apW-hb-c5y"/>
+                        <outlet property="cardView" destination="eLI-xG-lKs" id="Tpw-3h-FTV"/>
                         <outlet property="galerieButton" destination="ini-Gy-YCe" id="M69-Dd-YD2"/>
                         <outlet property="messageTableView" destination="BtC-9Y-OUC" id="xkK-pS-w9k"/>
                         <outlet property="messageTextField" destination="Ze6-vH-ejj" id="KsR-Cp-i01"/>
+                        <outlet property="noCardView" destination="0Hx-Hx-kz2" id="tUG-f1-fYk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZiY-fh-Yu4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="eLI-xG-lKs">
+                    <rect key="frame" x="0.0" y="0.0" width="335" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="p3f-Nj-WK7">
+                            <rect key="frame" x="0.0" y="0.0" width="373" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5NR-EZ-hgn">
+                                <size key="itemSize" width="191" height="111"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                            <cells>
+                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="card" id="xRJ-zz-LLq" customClass="CardCollectionViewCell" customModule="financeApp" customModuleProvider="target">
+                                    <rect key="frame" x="91" y="0.0" width="191" height="111"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                        <rect key="frame" x="0.0" y="0.0" width="191" height="111"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vka-5k-fT4">
+                                                <rect key="frame" x="0.0" y="0.0" width="191" height="111"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card" translatesAutoresizingMaskIntoConstraints="NO" id="X6y-W3-TaE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="191" height="111"/>
+                                                    </imageView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ehG-NH-YTk">
+                                                        <rect key="frame" x="9.5" y="55.5" width="191" height="49.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9123 0983 9083 9873" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZL-qg-Fha">
+                                                                <rect key="frame" x="0.0" y="0.0" width="125" height="25"/>
+                                                                <fontDescription key="fontDescription" name="HiraMinProN-W3" family="Hiragino Mincho ProN" pointSize="12"/>
+                                                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YVES SONGOLO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eqp-QV-AIf">
+                                                                <rect key="frame" x="0.0" y="25" width="62.5" height="24.5"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="8"/>
+                                                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="ehG-NH-YTk" firstAttribute="height" secondItem="vka-5k-fT4" secondAttribute="height" multiplier="0.45" id="6Up-Mi-E2N"/>
+                                                    <constraint firstAttribute="trailing" secondItem="X6y-W3-TaE" secondAttribute="trailing" id="JSG-8z-S17"/>
+                                                    <constraint firstItem="X6y-W3-TaE" firstAttribute="top" secondItem="vka-5k-fT4" secondAttribute="top" id="Wen-qN-aJM"/>
+                                                    <constraint firstItem="ehG-NH-YTk" firstAttribute="width" secondItem="vka-5k-fT4" secondAttribute="width" id="Xpw-XI-cRL"/>
+                                                    <constraint firstItem="ehG-NH-YTk" firstAttribute="centerY" secondItem="vka-5k-fT4" secondAttribute="centerY" multiplier="1.45" id="hfo-FO-jYh"/>
+                                                    <constraint firstAttribute="bottom" secondItem="X6y-W3-TaE" secondAttribute="bottom" id="peG-GW-Kmh"/>
+                                                    <constraint firstItem="X6y-W3-TaE" firstAttribute="leading" secondItem="vka-5k-fT4" secondAttribute="leading" id="pkd-V9-2Iq"/>
+                                                    <constraint firstItem="ehG-NH-YTk" firstAttribute="centerX" secondItem="vka-5k-fT4" secondAttribute="centerX" multiplier="1.1" id="qb0-CN-KWB"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </view>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="vka-5k-fT4" secondAttribute="bottom" id="Gpd-mT-PtY"/>
+                                        <constraint firstItem="vka-5k-fT4" firstAttribute="leading" secondItem="xRJ-zz-LLq" secondAttribute="leading" id="MFt-5e-0Fm"/>
+                                        <constraint firstItem="vka-5k-fT4" firstAttribute="top" secondItem="xRJ-zz-LLq" secondAttribute="top" id="aPf-DB-inX"/>
+                                        <constraint firstAttribute="trailing" secondItem="vka-5k-fT4" secondAttribute="trailing" id="bRu-1M-yJz"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="cardHolder" destination="Eqp-QV-AIf" id="ndd-IF-6FJ"/>
+                                    </connections>
+                                </collectionViewCell>
+                            </cells>
+                            <connections>
+                                <outlet property="dataSource" destination="02W-Le-VMN" id="FJ3-Uh-Vyv"/>
+                                <outlet property="delegate" destination="02W-Le-VMN" id="Tsj-PU-KJm"/>
+                            </connections>
+                        </collectionView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="ZRF-hA-lr5"/>
+                </view>
+                <view contentMode="scaleToFill" id="0Hx-Hx-kz2">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y65-Qf-d72">
+                            <rect key="frame" x="80.5" y="47.5" width="79" height="34"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <state key="normal" title="Add Card">
+                                <color key="titleColor" red="0.92156862745098034" green="0.28627450980392155" blue="0.3843137254901961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="addCardButtonTapped:" destination="02W-Le-VMN" eventType="touchUpInside" id="bee-ee-4Rg"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Y65-Qf-d72" firstAttribute="centerX" secondItem="0Hx-Hx-kz2" secondAttribute="centerX" id="QfG-B7-uN5"/>
+                        <constraint firstItem="Y65-Qf-d72" firstAttribute="centerY" secondItem="0Hx-Hx-kz2" secondAttribute="centerY" id="cCB-g3-Nry"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="ohg-GA-RgQ"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="700" y="130.88455772113943"/>
         </scene>
@@ -283,6 +387,7 @@
         <image name="Rectangle 2 Copy 4" width="269" height="52"/>
         <image name="Rectangle 6" width="375" height="54"/>
         <image name="Shape Copy" width="276" height="38"/>
+        <image name="card" width="352" height="205"/>
         <image name="imagePlaceHolder" width="269" height="178"/>
         <image name="photo copy" width="18" height="20"/>
     </resources>
