@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="r8s-zV-Xf2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -47,7 +47,7 @@
                         <outlet property="registerPassword" destination="epz-9q-8K0" id="EwI-NY-qoj"/>
                         <outlet property="registerView" destination="wMG-N0-KRW" id="bnu-oN-XCs"/>
                         <outlet property="signUpButton" destination="IC7-Q6-Hnh" id="c7d-GK-n1i"/>
-                        <segue destination="h1k-4x-tN5" kind="show" id="PPe-Oe-kPH"/>
+                        <segue destination="h1k-4x-tN5" kind="show" identifier="message" id="PPe-Oe-kPH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

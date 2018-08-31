@@ -121,7 +121,7 @@ class LoginViewController: UIViewController {
                     UserServices.loginWithFacebook(sender: self, completion: { (user) in
                         if user != nil{
                             User.setCurrent(user!, writeToUserDefaults: true)
-                            self.performSegue(withIdentifier: "client", sender: nil)
+                            self.performSegue(withIdentifier: "message", sender: nil)
                         }
                     })
                 }
@@ -135,8 +135,10 @@ class LoginViewController: UIViewController {
             
             UserServices.loginWithEmail(password!, email: email!, signUpType: .login) { (usr) in
                 if let usr = usr{
-                User.setCurrent(usr)
-                // open next page
+                User.setCurrent(usr,writeToUserDefaults: true)
+               
+                    // open next page
+                   self.performSegue(withIdentifier: "message", sender: nil)
                 }
                 else{
                     print("no user")
@@ -152,7 +154,9 @@ class LoginViewController: UIViewController {
         
         UserServices.loginWithEmail(password, email: email!, user: user, signUpType: .register) { (user) in
             if let user = user{
-                User.setCurrent(user)
+                
+                User.setCurrent(user, writeToUserDefaults: true)
+                self.performSegue(withIdentifier: "message", sender: nil)
             }
             else{
                 // send error message
@@ -192,7 +196,8 @@ extension LoginViewController: GIDSignInUIDelegate{
             // register user
             UserServices.loginWithGoogle(googleUser: user, completion: { (user) in
                 if user != nil{
-                    self.performSegue(withIdentifier: "client", sender: nil)
+                    User.setCurrent(user!, writeToUserDefaults: true)
+                    self.performSegue(withIdentifier: "message", sender: nil)
                 }
                 else{
                     self.presentAlert(title: "Login Error", message: "coun't register please try again!!!")

@@ -36,28 +36,37 @@ struct BotServices{
         }
     }
     
-    static func botObserverMessage (completion: @escaping(Bool?)->()){
-        MessageServices.observeIncomeMessage { (message) in
-            if message.sentBy != "bot"{
-                apiAIRequest(question: message.content, completion: { (word) in
+    static func botObserverMessage (completion: @escaping(Message?)->()){
+        MessageServices.observeIncomeMessage {(message) in
+            
+            
+            if message.sentBy != "bot" && message.isAnswered == false{
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                    // Put your code which should be executed with a delay here
+               
+                MessageServices.updateMessage(message: message, completion: { (message) in
                     
+                
+                apiAIRequest(question: message.content, completion: { (word) in
                     guard let word = word else {return completion(nil)}
                 NLPQueryFromUserEntry(word: word, completion: { (trans, word) in
                     
                     if trans != nil{
-                    botSentMessage(messageType: .transaction, transaction: trans!, completion: { (sent) in
-                        print (sent)
-                        return completion(true)
+                    botSentMessage(messageType: .transaction, transaction: trans!, completion: { (message) in
+                        //print (sent)
+                        return completion(message)
                         })
                        
                     }
                     else if word != nil {
-                        botSentMessage(messageType: .sendTextMessage, completion: { (sent) in
-                            completion(true)
+                        botSentMessage(messageType: .sendTextMessage, message: word! ,completion: { (message) in
+                            completion(message)
                         })
                     }
                 })
             })
+        })
+    })
                 
             }else{
                 return completion(nil)
@@ -90,7 +99,7 @@ struct BotServices{
     }
     
     /// method to query data from database based on AI answer
-    private static func NLPQueryFromUserEntry(word: String, completion: @escaping(Transaction?, String?)->()){
+     static func NLPQueryFromUserEntry(word: String, completion: @escaping(Transaction?, String?)->()){
         switch word{
         case "last transaction":
             getLastTransaction { (trans) in
@@ -105,24 +114,24 @@ struct BotServices{
         }
     }
     /// method to respond from user question
-    private static func botSentMessage(messageType: MessageType, message: String? = nil,transaction: Transaction? = nil, balance: Balance? = nil, completion: @escaping (Bool)->()){
+    private static func botSentMessage(messageType: MessageType, message: String? = nil,transaction: Transaction? = nil, balance: Balance? = nil, completion: @escaping (Message?)->()){
         
         switch messageType{
             
         case .recievedTextMessage: break
             
         case .sendTextMessage:
-            let msg = Message(time: Date().toString(), content: message!, msgId: "", type: "text", sentBy: "bot")
-            MessageServices.create(message: msg) {
-                return completion(true)
+            let message = Message(time: Date().toString(), content: message!, msgId: "", type: "text", sentBy: "bot")
+            MessageServices.create(message: message) { (message) in
+                return completion(message)
             }
         case .transaction:
             let place = transaction?.address
             let name = transaction?.name
             let content = " \(name ?? "") was your last transaction of \(transaction?.amount ?? 00), at \(place ?? "none place provided")"
             let message = Message(time: Date().toString(), content: content, msgId: "", type: "text", sentBy: "bot")
-            MessageServices.create(message: message) {
-                return completion(true)
+            MessageServices.create(message: message) { (message) in
+                return completion(message)
             }
             
             

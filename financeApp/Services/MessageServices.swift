@@ -12,17 +12,19 @@ import Firebase
 struct MessageServices{
     
     
-    static func create(message: Message, completion: @escaping()->()){
+    static func create(message: Message, completion: @escaping(Message)->()){
         let user = Auth.auth().currentUser
         let msgRef = Database.database().reference().child("Message").child((user?.uid)!).childByAutoId()
         
         message.msgID = msgRef.key
         
-        msgRef.setValue(message) { (_, _) in
-           completion()
+        msgRef.setValue(message.toDictionary()) { (_, _) in
+           completion(message)
         }
         
     }
+    
+    /// method to observe incoming messages
    static func observeIncomeMessage(completion: @escaping(Message)->()){
      let user = Auth.auth().currentUser
         let ref = Database.database().reference().child("Message").child((user?.uid)!)
@@ -33,6 +35,18 @@ struct MessageServices{
         }
     }
     
+    /// method to update message
+    static func updateMessage (message: Message, completion: @escaping(Message)->()){
+        let user = Auth.auth().currentUser
+        message.isAnswered = true
+        let msgRef = Database.database().reference().child("Message").child((user?.uid)!).child(message.msgID)
+        
+        msgRef.updateChildValues(message.toDictionary()) { (_, _) in
+            completion(message)
+        }
+    }
+    
+    /// method to fetch all messages
     static func fetchMessages(completion: @escaping([Message]?)->()){
          let user = Auth.auth().currentUser
         let ref = Database.database().reference().child("Message").child((user?.uid)!)
