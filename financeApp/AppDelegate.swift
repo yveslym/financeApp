@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.makeKeyAndVisible()
             
         }
-        
+        KeyChainData.setUpKeyChain()
         return true
     }
     

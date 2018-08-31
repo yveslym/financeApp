@@ -68,6 +68,30 @@ class MessageViewController: UIViewController {
         }
               //})
     }
+    
+    func setUpSwipGesture(){
+        let swipeDown  = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureDown(gesture:)))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        let swipeUp =  UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureUp(gesture:)))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.up
+        noCardView.addGestureRecognizer(swipeUp)
+        noCardView.addGestureRecognizer(swipeDown)
+        
+        cardView.addGestureRecognizer(swipeUp)
+        cardView.addGestureRecognizer(swipeDown)
+    }
+    
+    @objc func respondToSwipeGestureDown(gesture: UIGestureRecognizer){
+        UIView.animate(withDuration: 1) {
+            self.noCardView.frame.origin.y = -30
+        }
+    }
+    
+    @objc func respondToSwipeGestureUp(gesture: UIGestureRecognizer){
+    
+    }
+    
+    
     @IBAction func addCardButtonTapped(_ sender: Any) {
        
          self.delegate.presentPlaidLink()

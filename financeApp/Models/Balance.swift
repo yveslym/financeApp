@@ -12,7 +12,7 @@ import Foundation
 
 
  class Balance: Codable {
-
+ 
     var current: Double
     var available: Double
     
@@ -31,8 +31,7 @@ import Foundation
     }
     
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
-        
-        let data = try! JSONSerialization.data(withJSONObject: self, options: opt)
+        let data = try! JSONEncoder().encode(self)
         let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
         return json
     }

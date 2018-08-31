@@ -53,11 +53,7 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
                 bank.itemAccess = itemAccess
                 plaidOperation.accounts(bank: bank, completion: { (accounts) in
                     
-                    accounts?.forEach({ (account) in
-                       
-                        bank.accounts?.append(account)
-                    })
-                    
+                        bank.accounts = accounts
                     let formatter = DateFormatter()
                     formatter.dateFormat = "dd-MM-yyyy"
                     let endDate = Date()
@@ -67,24 +63,24 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
                         
                         if allTransaction != nil{
                             
-                            let accounts = bank.accounts
+                           
                             
                             // insert each transaction in the respective account
                             allTransaction?.forEach({ (transaction) in
-                                accounts?.forEach({ (account) in
+                                bank.accounts?.forEach({ (account) in
                                     if transaction.accountID == account.id{
                                         transaction.account = account
                                         account.transactions.append(transaction)
                                     }
                                 })
                             })
-                            
-                            // save in the core data
-//                            let stack = CoreDataStack.instance
-//                            let objectID = bank.objectID
-//                            let privateBank = stack.privateContext.object(with: objectID) as! Bank
-//                            bank = privateBank
-//                            stack.saveTo(context: stack.privateContext)
+                            plaidOperation.getBalance(with: bank, completion: { (balance) in
+                                plaidServices.createBank(bank, completion: {
+                                    print("bank uploaded")
+                                })
+                            })
+                           
+                           
                             
                         }
                     })

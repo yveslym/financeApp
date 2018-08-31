@@ -24,7 +24,6 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5wy-Sr-xaf">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="98.5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BtC-9Y-OUC">
                                         <rect key="frame" x="0.0" y="108.5" width="355" height="492.5"/>
@@ -335,14 +334,14 @@
                             <rect key="frame" x="80.5" y="47.5" width="79" height="34"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <state key="normal" title="Add Card">
-                                <color key="titleColor" red="0.92156862745098034" green="0.28627450980392155" blue="0.3843137254901961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="addCardButtonTapped:" destination="02W-Le-VMN" eventType="touchUpInside" id="bee-ee-4Rg"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.92156862750000001" green="0.28627450980000002" blue="0.38431372549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="Y65-Qf-d72" firstAttribute="centerX" secondItem="0Hx-Hx-kz2" secondAttribute="centerX" id="QfG-B7-uN5"/>
                         <constraint firstItem="Y65-Qf-d72" firstAttribute="centerY" secondItem="0Hx-Hx-kz2" secondAttribute="centerY" id="cCB-g3-Nry"/>

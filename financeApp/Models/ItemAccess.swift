@@ -12,14 +12,13 @@ import CoreData
 
 class ItemAccess:  Codable {
     
-    var accessToken: String?
-    var itemId: String?
+    var accessToken: String? = ""
+    var itemId: String? = ""
     
     init(){}
     
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
-        
-        let data = try! JSONSerialization.data(withJSONObject: self, options: opt)
+        let data = try! JSONEncoder().encode(self)
         let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
         return json
     }

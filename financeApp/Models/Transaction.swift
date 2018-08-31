@@ -11,29 +11,28 @@ import Foundation
 
 class Transaction: Codable {
 
-   var accountID: String?
-   var address: String?
+   var accountID: String? = ""
+   var address: String? = ""
    var amount: Double
-    var category: String?
-   var city: String?
-   var date: String?
-   var name: String?
-   var state: String?
-    var types: String?
-   var zipCode: String?
+    var category: String? = ""
+   var city: String? = ""
+   var date: String? = ""
+   var name: String? = ""
+   var state: String? = ""
+    var types: String? = ""
+   var zipCode: String? = ""
    var account: Account?
-   var id: String?
-    var dayName: String?
-    var monthName: String?
-    var tag: String?
+   var id: String? = ""
+    var dayName: String? = ""
+    var monthName: String? = ""
+    var tag: String? = ""
   
     init(){
         amount = 0.0
     }
     
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
-        
-        let data = try! JSONSerialization.data(withJSONObject: self, options: opt)
+        let data = try! JSONEncoder().encode(self)
         let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
         return json
     }
@@ -83,10 +82,10 @@ required init(from decoder: Decoder) throws {
         }
         let locationContenair = try contenaire.nestedContainer(keyedBy: TransactionKey.AddressKey.self, forKey: .location)
 
-        self.city = try locationContenair.decodeIfPresent(String.self, forKey: .city) ?? nil
-        self.state = try locationContenair.decodeIfPresent(String.self, forKey: .state) ?? nil
-        self.address = try locationContenair.decodeIfPresent(String.self, forKey: .address) ?? nil
-        self.zipCode = try locationContenair.decodeIfPresent(String.self, forKey: .zip) ?? nil
+        self.city = try locationContenair.decodeIfPresent(String.self, forKey: .city) ?? ""
+        self.state = try locationContenair.decodeIfPresent(String.self, forKey: .state) ?? ""
+        self.address = try locationContenair.decodeIfPresent(String.self, forKey: .address) ?? ""
+        self.zipCode = try locationContenair.decodeIfPresent(String.self, forKey: .zip) ?? ""
 
         let todate = self.date?.toDate()
         self.dayName = todate?.dayOfWeak()

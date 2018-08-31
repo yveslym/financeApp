@@ -34,7 +34,7 @@ class plaidOperation{
 //    static func identity(with accessToken: String, completion: ()){
 //    }
 
-    static func account(with bank: Bank, account: Account, completion: @escaping (Balance?)-> Void){
+    static func getBalance(with bank: Bank, completion: @escaping (Balance?)-> Void){
     
         Networking.network(bank: bank, route: .balance, apiHost: .development) { (data) in
             let balance = try! JSONDecoder().decode(Balance.self, from: data!)

@@ -28,7 +28,7 @@ enum Route{
         case .income:
             return ("/income/get")
         case .balance:
-            return ("/balance/get")
+            return ("/accounts/balance/get")
         case .exchangeToken:
             return ("/item/public_token/exchange")
         case .accounts:
@@ -87,17 +87,17 @@ enum Route{
             return try! JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         case .balance:
-            var accountNumber: [String]? = nil
+            var accountNumber = [String]()
     
             let accounts = bank?.accounts
             for account in accounts!{
-                accountNumber?.append(account.id!)
+                accountNumber.append(account.id!)
             }
-            let accountId:[String:[String]?] = ["account_ids":accountNumber]
+            let accountId = ["account_ids":accountNumber]
             let body : [String: Any?] = ["client_id":client_id,
                                             "secret":secret,
-                                            "access_token":access_token,
-                                            "option":accountId]
+                                            "access_token":bank?.itemAccess?.accessToken,
+                                            "options":accountId]
             return try! JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         case .exchangeToken:

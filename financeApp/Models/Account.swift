@@ -12,16 +12,16 @@ import Foundation
 
 class Account: Codable {
     
-    var id: String?
+    var id: String? = ""
     var currentBalance: Double
     var availableBalance: Double
-    var name: String?
-    var accNumber: String?
+    var name: String? = ""
+    var accNumber: String? = ""
     var transactions = [Transaction]()
     var balance: Balance?
-    var subtype: String?
-    var officialName: String?
-    var limit: String?
+    var subtype: String? = ""
+    var officialName: String? = ""
+    var limit: String? = ""
     init(){
         currentBalance = 0.0
         availableBalance = 0.0
@@ -29,8 +29,7 @@ class Account: Codable {
     }
     
     func toDictionary(options opt: JSONSerialization.WritingOptions = []) -> [String: Any]{
-        
-        let data = try! JSONSerialization.data(withJSONObject: self, options: opt)
+        let data = try! JSONEncoder().encode(self)
         let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
         return json
     }
