@@ -36,8 +36,22 @@ struct BotServices{
         }
     }
     
-    static func botObserver (completion: @escaping(Message)->()){
-    
+    static func botObserverMessage (completion: @escaping(Bool?)->()){
+        MessageServices.observeIncomeMessage { (message) in
+            if message.sentBy != "bot"{
+                NLPQueryFromUserEntry(word: message.content, completion: { (trans) in
+                    
+                    if trans != nil{
+                    botSentMessage(messageType: .transaction, transaction: trans!, completion: { (sent) in
+                        print (sent)
+                        })
+                    }
+                })
+            }else{
+                return completion(nil)
+            }
+        }
+        
     }
     /// method to send quesrtion to the ApiAI
     static func apiAIRequest(question: String, completion: @escaping(String?)->()){
@@ -63,8 +77,8 @@ struct BotServices{
         ApiAI.shared().enqueue(request)
     }
     
-    /// method to quesry data from database based on AI answer
-    static func queryToUserNeedFromDatabase(word: String, completion: @escaping(Transaction?)->()){
+    /// method to query data from database based on AI answer
+    private static func NLPQueryFromUserEntry(word: String, completion: @escaping(Transaction?)->()){
         switch word{
         case "last transaction":
             getLastTransaction { (trans) in
@@ -74,13 +88,37 @@ struct BotServices{
                     completion(nil)
                 }
             }
-        case "current balance": break
-        default:break
+        case "current balance": return completion(nil)
+        default: return completion(nil)
+        }
+    }
+    /// method to respond from user question
+    private static func botSentMessage(messageType: MessageType, transaction: Transaction? = nil, balance: Balance? = nil, completion: @escaping (Bool)->()){
+        
+        switch messageType{
+            
+        case .recievedTextMessage: break
+            
+        case .sendTextMessage: break
+            
+        case .transaction:
+            let place = transaction?.address
+            let name = transaction?.name
+            let content = " \(name ?? "") was your last transaction of \(transaction?.amount ?? 00), at \(place ?? "none place provided")"
+            let message = Message(time: Date().toString(), content: content, msgId: "", type: "text", sentBy: "bot")
+            MessageServices.create(message: message) {
+                completion(true)
+            }
+            
+            
+        
+        case .balance: break
+            
         }
     }
     
     /// method to get last transaction
-    static func getLastTransaction(completion:@escaping(Transaction?)->()){
+    private static func getLastTransaction(completion:@escaping(Transaction?)->()){
         let ref = Database.database().reference().child("Bank").child((Auth.auth().currentUser?.uid)!)
         ref.observeSingleEvent(of: .value) { (snapshot) in
             if snapshot.exists(){
@@ -96,10 +134,6 @@ struct BotServices{
             }
             
         }
-      
-        
-        
-        
     }
     /// method to get current balance
     static func getCurrentBalance(completion:@escaping(Transaction)->()){

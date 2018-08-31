@@ -8,25 +8,24 @@
 
 import Foundation
 import Firebase
-struct MassageServices{
-    static func shows(){
-        
-    }
+
+struct MessageServices{
+    
     
     static func create(message: Message, completion: @escaping()->()){
-        let msgRef = Database.database().reference().child("Message").childByAutoId()
-        let grpRef = msgRef.child("group").childByAutoId()
-        let ref = grpRef.child("conversation").childByAutoId()
-        message.groupID = grpRef.key
-        message.msgID = ref.key
-        ref.setValue(message) { (_, _) in
-           
+        let user = Auth.auth().currentUser
+        let msgRef = Database.database().reference().child("Message").child((user?.uid)!).childByAutoId()
+        
+        message.msgID = msgRef.key
+        
+        msgRef.setValue(message) { (_, _) in
+           completion()
         }
         
-        
     }
-   static func observeIncomeMessage(groupKey: String, convoKey: String, completion: @escaping(Message)->()){
-        let ref = Database.database().reference().child("Message").child(convoKey).child("group").child(groupKey).child("conversation")
+   static func observeIncomeMessage(completion: @escaping(Message)->()){
+     let user = Auth.auth().currentUser
+        let ref = Database.database().reference().child("Message").child((user?.uid)!)
         ref.observe(.childAdded) { (snapshot) in
             guard let value = snapshot.value else {return}
             let msg = try! JSONDecoder().decode(Message.self, withJSONObject: value)
@@ -35,7 +34,8 @@ struct MassageServices{
     }
     
     static func fetchMessages(groupKey: String, convoKey: String, completion: @escaping([Message]?)->()){
-        let ref = Database.database().reference().child("Message").child(convoKey).child("group").child(groupKey).child("conversation")
+         let user = Auth.auth().currentUser
+        let ref = Database.database().reference().child("Message").child((user?.uid)!)
         ref.observeSingleEvent(of: .value) { (snapshot) in
            
             if snapshot.exists(){
@@ -52,10 +52,14 @@ struct MassageServices{
             }
         }
     }
+    
 }
+
 enum MessageType: String{
     case recievedTextMessage
     case sendTextMessage
+    case transaction
+    case balance
 }
 
 

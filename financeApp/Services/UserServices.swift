@@ -42,6 +42,18 @@ struct UserServices{
             }
         }
     }
+    
+    static func observeNewMessage(completion: @escaping(Message?) ->()){
+        MessageServices.observeIncomeMessage { (message) in
+            if message.sentBy == "bot"{
+                completion(message)
+            }
+            else{
+                completion(nil)
+            }
+        }
+    }
+    
     /// method to add google user to firrebase
     static func loginWithGoogle(googleUser: GIDGoogleUser, completion: @escaping(User?) -> ()){
         let profile = googleUser.profile

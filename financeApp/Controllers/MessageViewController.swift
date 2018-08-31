@@ -11,7 +11,13 @@ import UIKit
 class MessageViewController: UIViewController {
 
     @IBOutlet weak var messageTableView: UITableView!
-    var messages = [Message]()
+    var messages = [Message](){
+        didSet{
+            DispatchQueue.main.async {
+                self.messageTableView.reloadData()
+            }
+        }
+    }
     
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet weak var galerieButton: UIButton!
@@ -19,7 +25,7 @@ class MessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+      self.botObserveMessage()
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,7 +33,30 @@ class MessageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
    
-
+    @IBAction func sendButtonPress(_ sender: Any) {
+    
+        if !(messageTextField.text?.isEmpty)!{
+            guard let content = messageTextField.text else {return}
+             let message = Message(time: Date().toString(), content: content, msgId: "", type: "textMessage", sentBy: "user")
+            MessageServices.create(message: message) {
+                self.messages.append(message)
+                self.messageTableView.reloadData()
+            }
+        }
+    }
+    
+    func botObserveMessage(){
+        BotServices.botObserverMessage { (sent) in
+            print(sent ?? "")
+        }
+    }
+    func userObserveMessage(){
+        UserServices.observeNewMessage { (message) in
+            if let msg = message{
+                self.messages.append(msg)
+            }
+        }
+    }
 }
 
 // - Mark: TableView lyfe cicle
@@ -61,11 +90,13 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource{
         
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let message = messages[indexPath.row]
-        let content = message.content
-        return 0
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let message = messages[indexPath.row]
+//        let content = message.content
+//        return 0
+//    }
+    
+    
     
     
 }
