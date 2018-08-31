@@ -28,6 +28,8 @@ struct plaidServices{
         let ref = Database.database().reference().child("Bank").child((Auth.auth().currentUser?.uid)!).child(bank.id!)
         ref.setValue(bank.toDictionary()) { (error, _) in
             if error == nil{
+                
+                // save last transaction
                 completion()
             }
         }

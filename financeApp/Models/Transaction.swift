@@ -268,6 +268,22 @@ extension Transaction{
     
         return result
     }
+    
+    /// last transaction
+    static func lastTransaction(trans: [Transaction]) -> Transaction{
+        let sort = trans.sorted(by: {$0.date! > $1.date!})
+        return sort.first!
+    }
+    /// method to get all transaction of all acxcoiunt of a given bank
+    static func getAllTransactionOfAllAcount(accounts: [Account]) -> [Transaction]{
+        
+        var trans = [Transaction]()
+        accounts.forEach { (account) in trans += account.transactions}
+        
+        return trans
+    }
+    
+    
     /// return all transaction of the same date
     static func transactionOfSameDate( date: String, transaction: [Transaction]) -> [Transaction]{
         let trans = transaction.filter{ $0.date == date}

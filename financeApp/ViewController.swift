@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import ApiAI
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        BotServices.apiAIRequest(question: "transaction") { (response) in
+            print(response ?? "bummer there's error")
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -1,4 +1,29 @@
 PODS:
+  - ApiAI (0.7.2):
+    - ApiAI/AudioFileConverter (= 0.7.2)
+    - ApiAI/Core (= 0.7.2)
+    - ApiAI/Events (= 0.7.2)
+    - ApiAI/ResponseMapping (= 0.7.2)
+    - ApiAI/UIKit (= 0.7.2)
+    - ApiAI/UserEntities (= 0.7.2)
+    - ApiAI/VoiceFileRequest (= 0.7.2)
+    - ApiAI/VoiceRequest (= 0.7.2)
+  - ApiAI/AudioFileConverter (0.7.2):
+    - ApiAI/Core
+  - ApiAI/Core (0.7.2)
+  - ApiAI/Events (0.7.2):
+    - ApiAI/Core
+  - ApiAI/ResponseMapping (0.7.2):
+    - ApiAI/Core
+  - ApiAI/UIKit (0.7.2):
+    - ApiAI/Core
+    - ApiAI/VoiceRequest
+  - ApiAI/UserEntities (0.7.2):
+    - ApiAI/Core
+  - ApiAI/VoiceFileRequest (0.7.2):
+    - ApiAI/Core
+  - ApiAI/VoiceRequest (0.7.2):
+    - ApiAI/Core
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -114,6 +139,7 @@ PODS:
   - SnapKit (4.0.0)
 
 DEPENDENCIES:
+  - ApiAI
   - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
@@ -129,6 +155,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - ApiAI
     - Bolts
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -157,6 +184,7 @@ SPEC REPOS:
     - SnapKit
 
 SPEC CHECKSUMS:
+  ApiAI: d4b49d3736f33ce6f3ef66dc33c0e0fccb23579e
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FBSDKCoreKit: 1a5b2e3ceb5ca827a53c54aa5f4a3480efff80d2
   FBSDKLoginKit: 00a3d65d1226852f9d76dcddff01981e5e6d9c38
@@ -184,6 +212,6 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: ba335c78868843729ed948971941c9ed9d8d0616
+PODFILE CHECKSUM: 1ad93477feafd0d7eb950774fd805ebfd3e0b686
 
 COCOAPODS: 1.5.3

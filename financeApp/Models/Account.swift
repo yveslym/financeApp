@@ -30,6 +30,8 @@ class Account: Decodable {
         return json
     }
     
+    
+    
     required init(from decoder: Decoder)throws {
         
         enum AccountKey: String, CodingKey{
@@ -54,6 +56,7 @@ class Account: Decodable {
         self.availableBalance = try! balanceContenaire.decodeIfPresent(Double.self, forKey: .available) ?? 0.0
         
     }
+    
 }
 
 

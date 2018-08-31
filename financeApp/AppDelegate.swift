@@ -15,6 +15,7 @@ import Firebase
 import FirebaseInstanceID
 import FirebaseMessaging
 import FBSDKCoreKit
+import ApiAI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -67,6 +68,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        // handle ApiAI
+        let configuration = AIDefaultConfiguration()
+        configuration.clientAccessToken = "ef1b907db2744277878bb5824479972a"
+        
+        let apiai = ApiAI.shared()
+        apiai?.configuration = configuration
         
         
         return true
