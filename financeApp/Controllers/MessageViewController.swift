@@ -13,7 +13,7 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var messageTableView: UITableView!
     @IBOutlet weak var cardCollectionView: UICollectionView!
     
-    @IBOutlet var noCardView: UIView!
+   
     @IBOutlet var cardView: UIView!
      weak var delegate : plaidDelegate!
     
@@ -56,10 +56,11 @@ class MessageViewController: UIViewController {
     @IBAction func sendButtonPress(_ sender: Any) {
         //DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
             // Put your code which should be executed with a delay here
-      
+        
             if !(self.messageTextField.text?.isEmpty)!{
                 guard let content = self.messageTextField.text else {return}
             let message = Message(time: Date().toString(), content: content, msgId: "", type: "textMessage", sentBy: "user")
+                 self.messageTextField.text = ""
             MessageServices.create(message: message) { (message) in
                 
             
@@ -70,27 +71,26 @@ class MessageViewController: UIViewController {
               //})
     }
     
-    func setUpSwipGesture(){
-        let swipeDown  = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureDown(gesture:)))
-        swipeDown.direction = UISwipeGestureRecognizerDirection.down
-        let swipeUp =  UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureUp(gesture:)))
-        swipeDown.direction = UISwipeGestureRecognizerDirection.up
-        noCardView.addGestureRecognizer(swipeUp)
-        noCardView.addGestureRecognizer(swipeDown)
-        
-        cardView.addGestureRecognizer(swipeUp)
-        cardView.addGestureRecognizer(swipeDown)
-    }
-    
-    @objc func respondToSwipeGestureDown(gesture: UIGestureRecognizer){
-        UIView.animate(withDuration: 1) {
-            self.noCardView.frame.origin.y = -10
-        }
-    }
-    
-    @objc func respondToSwipeGestureUp(gesture: UIGestureRecognizer){
-    
-    }
+//    func setUpSwipGesture(){
+//        let swipeDown  = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureDown(gesture:)))
+//        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+//        let swipeUp =  UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureUp(gesture:)))
+//        swipeDown.direction = UISwipeGestureRecognizerDirection.up
+//
+//
+//        cardView.addGestureRecognizer(swipeUp)
+//        cardView.addGestureRecognizer(swipeDown)
+//    }
+//
+//    @objc func respondToSwipeGestureDown(gesture: UIGestureRecognizer){
+//        UIView.animate(withDuration: 1) {
+//
+//        }
+//    }
+//
+//    @objc func respondToSwipeGestureUp(gesture: UIGestureRecognizer){
+//
+//    }
     
     
     @IBAction func addCardButtonTapped(_ sender: Any) {
@@ -119,7 +119,7 @@ class MessageViewController: UIViewController {
     func getMyBankCard(){
         plaidServices.retrieveAccount { (accounts) in
             if let accounts = accounts{
-                self.view.addSubview(self.cardView)
+                //self.view.addSubview(self.cardView)
                 self.cards = accounts
             }
         }
@@ -127,12 +127,10 @@ class MessageViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         
-        if cards.count == 0{
-            view.addSubview(noCardView)
+        if cards.count != 0{
+           //view.addSubview(cardView)
         }
-        else{
-            view.addSubview(cardView)
-        }
+        
         
         MessageServices.fetchMessages { (msg) in
             if let msg = msg{
@@ -204,13 +202,12 @@ extension MessageViewController: UICollectionViewDataSource, UICollectionViewDel
         return cell
     }
     
-    func setUpCardView(){
-        let h = view.frame.height / 6
-        let w = view.frame.width
-        cardView.frame = CGRect(x: 0, y: 0, width: w, height: h)
-        noCardView.frame = CGRect(x: 0, y: 0, width: w, height: h)
-        
-    }
+//    func setUpCardView(){
+//        let h = view.frame.height / 6
+//        let w = view.frame.width + 20
+//        let y = view.frame.height / 10
+//        cardView.frame = CGRect(x: 0, y: y, width: w, height: h)
+//    }
     
 }
 

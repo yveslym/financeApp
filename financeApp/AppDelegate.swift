@@ -16,6 +16,7 @@ import FirebaseInstanceID
 import FirebaseMessaging
 import FBSDKCoreKit
 import ApiAI
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        IQKeyboardManager.shared.enable = true
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         // Add any custom logic here.
@@ -51,12 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSLog("[RemoteNotification] applicationState: \(applicationStateString) didFinishLaunchingWithOptions for iOS9: \(userInfo)")
             //TODO: Handle background notification
         }
-        
-        
-       
-        
-       
-        
+
         // handle ApiAI
         let configuration = AIDefaultConfiguration()
         configuration.clientAccessToken = "ef1b907db2744277878bb5824479972a"
