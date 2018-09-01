@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import Chatto
+import ChattoAdditions
+import BusinessChat
 
 class TextMessageSentTableViewCell: UITableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

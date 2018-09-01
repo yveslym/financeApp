@@ -30,6 +30,9 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - Chatto (3.3.1)
+  - ChattoAdditions (3.3.1):
+    - Chatto
   - FBSDKCoreKit (4.35.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.35.0):
@@ -141,6 +144,8 @@ PODS:
 
 DEPENDENCIES:
   - ApiAI
+  - Chatto (= 3.3.1)
+  - ChattoAdditions (= 3.3.1)
   - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
@@ -159,6 +164,8 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ApiAI
     - Bolts
+    - Chatto
+    - ChattoAdditions
     - FBSDKCoreKit
     - FBSDKLoginKit
     - Firebase
@@ -189,6 +196,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   ApiAI: d4b49d3736f33ce6f3ef66dc33c0e0fccb23579e
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Chatto: 24a6c9b0c91b08130466888b8b61563b90191c6f
+  ChattoAdditions: cc74cd3dd371aa3f70e5ab8568a4f383f0c0eb8c
   FBSDKCoreKit: 1a5b2e3ceb5ca827a53c54aa5f4a3480efff80d2
   FBSDKLoginKit: 00a3d65d1226852f9d76dcddff01981e5e6d9c38
   Firebase: 8c957f9cb3852b519180fb378801b7eeeba4d288
@@ -216,6 +225,6 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: b97fd852e5e1e451018d5bb913439875d952367e
+PODFILE CHECKSUM: 4ffbea23d7f44122fb05aa37e330f02b102f65eb
 
 COCOAPODS: 1.5.3
