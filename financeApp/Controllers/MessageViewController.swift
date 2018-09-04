@@ -37,6 +37,16 @@ class MessageViewController: UIViewController {
         }
     }
     
+    /// method to send a welcome message to user
+    func welcomeMessage(){
+        let content = "Hey \(User.current.name), welcome to Finance app, I'm Yveslym your companion, you can ask me any question about you account, like what's my last purchase? for example, and don't forget to add your debit cared so i can help you 😎"
+        let message = Message(time: Date().toString(), content: content, msgId: "", type: "text", sentBy: "bot")
+        
+        MessageServices.create(message: message) { (message) in
+            self.messages.insert(message, at: 0)
+           
+        }
+    }
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet weak var galerieButton: UIButton!
     
@@ -51,7 +61,22 @@ class MessageViewController: UIViewController {
         self.botObserveMessage()
         self.userObserveMessage()
         self.getMyBankCard()
+        
+        
+        MessageServices.fetchMessages { (msg) in
+            if let msg = msg{
+                
+                let message = msg.sorted(by: {$0.time > $1.time})
+                self.messages = message
+            }
+            else{
+                if UserDefaults.standard.value(forKey: "firstMessage") == nil{
+                UserDefaults.standard.set(true, forKey: "firstMessage")
+                self.welcomeMessage()
+            }
+        }
     }
+}
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -99,11 +124,12 @@ class MessageViewController: UIViewController {
                 floaty.close()
             }
         }
-        floaty.addItem("Add debit Card", icon:  UIImage(named: "wallet")) { (float) in
-           self.performSegue(withIdentifier: "chart", sender: nil)
+        floaty.addItem("Add debit Card", icon:  UIImage(named: "debit")) { (float) in
+           self.delegate.presentPlaidLink()
+            floaty.close()
         }
-        floaty.addItem("Balance", icon:  UIImage(named: "wallet")) { (float) in
-            
+        floaty.addItem("See Chart", icon:  UIImage(named: "chart")) { (float) in
+             self.performSegue(withIdentifier: "chart", sender: nil)
                 floaty.close()
             }
         
@@ -115,7 +141,6 @@ class MessageViewController: UIViewController {
     
     func botObserveMessage(){
         BotServices.botObserverMessage { (sent) in
-            
             print(sent ?? "")
         }
     }
@@ -134,7 +159,6 @@ class MessageViewController: UIViewController {
                 self.cards = accounts
             }
         }
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         
@@ -143,13 +167,6 @@ class MessageViewController: UIViewController {
         }
         
         
-        MessageServices.fetchMessages { (msg) in
-            if let msg = msg{
-                
-                let message = msg.sorted(by: {$0.time > $1.time})
-                self.messages = message
-            }
-        }
     }
 }
 

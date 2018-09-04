@@ -39,6 +39,11 @@ class ChartViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func returnButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

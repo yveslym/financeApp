@@ -21,17 +21,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9zo-Wx-iTp">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U69-Lu-O1e">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="66.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="MyU-mC-BQV">
+                                                <rect key="frame" x="10" y="0.0" width="365" height="66.5"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mqv-UF-UtL">
+                                                        <rect key="frame" x="0.0" y="0.0" width="146" height="66.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
+                                                        <state key="normal" title="&lt;">
+                                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="returnButtonTapped:" destination="zm1-eR-uU7" eventType="touchUpInside" id="mpY-a9-Rk6"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="src-pa-rBe">
+                                                        <rect key="frame" x="146" y="0.0" width="219" height="66.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="src-pa-rBe" firstAttribute="width" secondItem="MyU-mC-BQV" secondAttribute="width" multiplier="0.6" id="StK-i3-WAa"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.92156862750000001" green="0.28627450980000002" blue="0.38431372549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="MyU-mC-BQV" secondAttribute="bottom" id="CLX-xf-JnJ"/>
+                                            <constraint firstItem="MyU-mC-BQV" firstAttribute="leading" secondItem="U69-Lu-O1e" secondAttribute="leading" constant="10" id="ZpD-Gb-w3d"/>
+                                            <constraint firstItem="MyU-mC-BQV" firstAttribute="top" secondItem="U69-Lu-O1e" secondAttribute="top" id="dvn-f9-L6r"/>
+                                            <constraint firstAttribute="trailing" secondItem="MyU-mC-BQV" secondAttribute="trailing" id="qY4-f7-MP3"/>
+                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sbM-Db-82f">
-                                        <rect key="frame" x="0.0" y="64.5" width="375" height="582.5"/>
+                                        <rect key="frame" x="0.0" y="66.5" width="375" height="600.5"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XsK-6b-d3c">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="582.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="600.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="pie" rowHeight="277" id="0g9-HH-v8Y" customClass="ChartTableViewCell" customModule="financeApp" customModuleProvider="target">
@@ -392,7 +424,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="9zo-Wx-iTp" firstAttribute="top" secondItem="s7G-fZ-Eez" secondAttribute="top" id="49o-Rh-AZt"/>
+                            <constraint firstItem="9zo-Wx-iTp" firstAttribute="top" secondItem="zge-4q-JHz" secondAttribute="top" id="49o-Rh-AZt"/>
                             <constraint firstItem="s7G-fZ-Eez" firstAttribute="bottom" secondItem="9zo-Wx-iTp" secondAttribute="bottom" id="EZ7-zP-ukH"/>
                             <constraint firstItem="s7G-fZ-Eez" firstAttribute="trailing" secondItem="9zo-Wx-iTp" secondAttribute="trailing" id="Y9K-T9-bp8"/>
                             <constraint firstItem="9zo-Wx-iTp" firstAttribute="leading" secondItem="s7G-fZ-Eez" secondAttribute="leading" id="r0a-JU-j8f"/>
