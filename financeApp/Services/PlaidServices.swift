@@ -70,5 +70,66 @@ struct plaidServices{
             }
         }
     }
-    
+    /// method to get last transaction
+    static func retrieveLastTransaction(completion:@escaping(Transaction?)->()){
+        let ref = Database.database().reference().child("Bank").child((Auth.auth().currentUser?.uid)!)
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            if snapshot.exists(){
+                var transactions = [Transaction]()
+                snapshot.children.forEach({ (snapshot) in
+                    
+                    let snapshot = snapshot as! DataSnapshot
+                    let json = JSON(snapshot.value!)
+                    
+                    let accountJson = json["account"].arrayValue
+                    accountJson.forEach({
+                        let transJson = $0["transactions"].arrayValue
+                        transJson.forEach({
+                            
+                            let transaction = try! JSONDecoder().decode(Transaction.self, withJSONObject: $0.object)
+                            transactions.append(transaction)
+                        })
+                    })
+                })
+                let lastTrans = Transaction.lastTransaction(trans: transactions)
+                
+                completion(lastTrans)
+                
+            }
+            else{
+                completion(nil)
+            }
+        }
+    }
+    /// method to get last transaction
+    static func retrieveTransactions(completion:@escaping([Transaction]?)->()){
+        let ref = Database.database().reference().child("Bank").child((Auth.auth().currentUser?.uid)!)
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            if snapshot.exists(){
+                var transactions = [Transaction]()
+                snapshot.children.forEach({ (snapshot) in
+                    
+                    let snapshot = snapshot as! DataSnapshot
+                    let json = JSON(snapshot.value!)
+                    
+                    let accountJson = json["account"].arrayValue
+                    accountJson.forEach({
+                        let transJson = $0["transactions"].arrayValue
+                        transJson.forEach({
+                            
+                            let transaction = try! JSONDecoder().decode(Transaction.self, withJSONObject: $0.object)
+                            transactions.append(transaction)
+                        })
+                    })
+                })
+               
+                
+                completion(transactions)
+                
+            }
+            else{
+                completion(nil)
+            }
+        }
+    }
 }

@@ -34,6 +34,11 @@
 		205599EA213526C800B06AD7 /* PlaidServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599E9213526C800B06AD7 /* PlaidServices.swift */; };
 		205599EC2135DC8800B06AD7 /* MessageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599EB2135DC8800B06AD7 /* MessageServices.swift */; };
 		205599EE2135DCF500B06AD7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599ED2135DCF500B06AD7 /* Message.swift */; };
+		208BDCF3213DBFF800F4DAA5 /* Chart.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 208BDCF2213DBFF800F4DAA5 /* Chart.storyboard */; };
+		208BDCF7213DC52500F4DAA5 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BDCF6213DC52500F4DAA5 /* ChartViewController.swift */; };
+		208BDCF9213DC6B000F4DAA5 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BDCF8213DC6B000F4DAA5 /* ChartTableViewCell.swift */; };
+		208BDCFB213DC6D400F4DAA5 /* PieChartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BDCFA213DC6D400F4DAA5 /* PieChartCollectionViewCell.swift */; };
+		208BDCFD213DCC9400F4DAA5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BDCFC213DCC9400F4DAA5 /* Constants.swift */; };
 		20E9F85C21364D30006E5A80 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E9F85B21364D30006E5A80 /* LoginViewController.swift */; };
 		20E9F85E213714E1006E5A80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20E9F85D213714E0006E5A80 /* Assets.xcassets */; };
 		20E9F860213760B2006E5A80 /* viewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E9F85F213760B2006E5A80 /* viewControllers.swift */; };
@@ -76,6 +81,11 @@
 		205599E9213526C800B06AD7 /* PlaidServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidServices.swift; sourceTree = "<group>"; };
 		205599EB2135DC8800B06AD7 /* MessageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageServices.swift; sourceTree = "<group>"; };
 		205599ED2135DCF500B06AD7 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		208BDCF2213DBFF800F4DAA5 /* Chart.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chart.storyboard; sourceTree = "<group>"; };
+		208BDCF6213DC52500F4DAA5 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		208BDCF8213DC6B000F4DAA5 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
+		208BDCFA213DC6D400F4DAA5 /* PieChartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartCollectionViewCell.swift; sourceTree = "<group>"; };
+		208BDCFC213DCC9400F4DAA5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		20E9F85B21364D30006E5A80 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		20E9F85D213714E0006E5A80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		20E9F85F213760B2006E5A80 /* viewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = viewControllers.swift; sourceTree = "<group>"; };
@@ -147,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				205599E72135227800B06AD7 /* GoogleService-Info.plist */,
+				208BDCFC213DCC9400F4DAA5 /* Constants.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -188,6 +199,8 @@
 				20E9F86B2138888D006E5A80 /* TextMessageSentTableViewCell.swift */,
 				20E9F86D213888A1006E5A80 /* TextMessageRecievedTableViewCell.swift */,
 				20E9F87321392CB2006E5A80 /* CardCollectionViewCell.swift */,
+				208BDCF8213DC6B000F4DAA5 /* ChartTableViewCell.swift */,
+				208BDCFA213DC6D400F4DAA5 /* PieChartCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,6 +210,7 @@
 			children = (
 				20E9F85B21364D30006E5A80 /* LoginViewController.swift */,
 				20E9F86721387141006E5A80 /* MessageViewController.swift */,
+				208BDCF6213DC52500F4DAA5 /* ChartViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -227,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				20E9F8622137B636006E5A80 /* Message.storyboard */,
+				208BDCF2213DBFF800F4DAA5 /* Chart.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -314,6 +329,7 @@
 				20E9F8632137B636006E5A80 /* Message.storyboard in Resources */,
 				20E9F85E213714E1006E5A80 /* Assets.xcassets in Resources */,
 				205599982134FBDA00B06AD7 /* Main.storyboard in Resources */,
+				208BDCF3213DBFF800F4DAA5 /* Chart.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +385,7 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Chatto/Chatto.framework",
 				"${BUILT_PRODUCTS_DIR}/ChattoAdditions/ChattoAdditions.framework",
+				"${BUILT_PRODUCTS_DIR}/Colours/Colours.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
@@ -382,6 +399,7 @@
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/XJYChart/XJYChart.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -391,6 +409,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Chatto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChattoAdditions.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Colours.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
@@ -404,6 +423,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XJYChart.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -437,6 +457,7 @@
 				20E9F85C21364D30006E5A80 /* LoginViewController.swift in Sources */,
 				205599E1213512D400B06AD7 /* Date+Extensions.swift in Sources */,
 				205599DF2135114500B06AD7 /* String+Extensions.swift in Sources */,
+				208BDCF9213DC6B000F4DAA5 /* ChartTableViewCell.swift in Sources */,
 				205599C22135016800B06AD7 /* Transaction.swift in Sources */,
 				205599EA213526C800B06AD7 /* PlaidServices.swift in Sources */,
 				205599AA2135008200B06AD7 /* Plaid+Extensions.swift in Sources */,
@@ -448,9 +469,12 @@
 				205599CD2135016800B06AD7 /* Identity.swift in Sources */,
 				20E9F86C2138888D006E5A80 /* TextMessageSentTableViewCell.swift in Sources */,
 				205599BF2135016800B06AD7 /* Account.swift in Sources */,
+				208BDCFB213DC6D400F4DAA5 /* PieChartCollectionViewCell.swift in Sources */,
 				205599932134FBDA00B06AD7 /* AppDelegate.swift in Sources */,
 				205599E421351A0B00B06AD7 /* UserServices.swift in Sources */,
 				20E9F86E213888A1006E5A80 /* TextMessageRecievedTableViewCell.swift in Sources */,
+				208BDCF7213DC52500F4DAA5 /* ChartViewController.swift in Sources */,
+				208BDCFD213DCC9400F4DAA5 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

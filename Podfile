@@ -22,6 +22,7 @@ target 'financeApp' do
   pod 'Chatto', '= 3.3.1'
   pod 'ChattoAdditions', '= 3.3.1'
   pod 'IQKeyboardManagerSwift'
+  pod 'XJYChart'
   # Pods for financeApp
 
 
