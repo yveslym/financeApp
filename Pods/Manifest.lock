@@ -1,4 +1,5 @@
 PODS:
+  - AnimatedCollectionViewLayout (0.3.0)
   - ApiAI (0.7.2):
     - ApiAI/AudioFileConverter (= 0.7.2)
     - ApiAI/Core (= 0.7.2)
@@ -90,6 +91,7 @@ PODS:
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseUI/Auth (5.1.3):
     - Firebase/Auth (~> 5.0)
+  - Floaty (3.0.1)
   - GoogleAppMeasurement (5.1.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
     - GoogleUtilities/MethodSwizzler (~> 5.2.0)
@@ -143,12 +145,14 @@ PODS:
   - nanopb/encode (0.3.8)
   - Plaid (1.1.10)
   - Protobuf (3.6.1)
+  - ScrollableGraphView (4.0.5)
   - SnapKit (4.0.0)
   - SwiftyJSON (4.1.0)
   - XJYChart (2.3.5):
     - Colours (= 5.13.0)
 
 DEPENDENCIES:
+  - AnimatedCollectionViewLayout
   - ApiAI
   - Chatto (= 3.3.1)
   - ChattoAdditions (= 3.3.1)
@@ -159,17 +163,20 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/Storage
   - FirebaseUI/Auth
+  - Floaty (~> 3.0.0)
   - GoogleSignIn
   - IQKeyboardManagerSwift
   - KeychainSwift
   - Kingfisher (~> 4.0)
   - Plaid
+  - ScrollableGraphView
   - SnapKit (~> 4.0.0)
   - SwiftyJSON (~> 4.0)
   - XJYChart
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AnimatedCollectionViewLayout
     - ApiAI
     - Bolts
     - Chatto
@@ -187,6 +194,7 @@ SPEC REPOS:
     - FirebaseMessaging
     - FirebaseStorage
     - FirebaseUI
+    - Floaty
     - GoogleAppMeasurement
     - GoogleSignIn
     - GoogleToolboxForMac
@@ -200,11 +208,13 @@ SPEC REPOS:
     - nanopb
     - Plaid
     - Protobuf
+    - ScrollableGraphView
     - SnapKit
     - SwiftyJSON
     - XJYChart
 
 SPEC CHECKSUMS:
+  AnimatedCollectionViewLayout: 504b992a4258eb39d2dd2b2b48e84b4b95860fd7
   ApiAI: d4b49d3736f33ce6f3ef66dc33c0e0fccb23579e
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Chatto: 24a6c9b0c91b08130466888b8b61563b90191c6f
@@ -222,6 +232,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: f67b3719f520ee200da0e20ce577fe2bce0c01d0
   FirebaseStorage: 7ca4bb7b58a25fa647b04f524033fc7cb7eb272b
   FirebaseUI: 6d3f86249a4de8288424e154c9ff1a976aae3910
+  Floaty: bb7a353deee9ddcc14c584ca9c538efdc19669f2
   GoogleAppMeasurement: e785bdb86d3d280abc778156cec323a975f11d1d
   GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
@@ -235,10 +246,11 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Plaid: 12dcbdb591ad64f015162964f4b3b7fc2c5fb37d
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  ScrollableGraphView: 6386dbae8d92e8ec9fda9f386f2ba6e2c90c59a3
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   XJYChart: 38f7412be14cfdcc95f7b4b78aaa3fb96dc28a61
 
-PODFILE CHECKSUM: a262cc087a4084c95f40a5562ab3e97ee63cce0c
+PODFILE CHECKSUM: b1164bf0c7317fed976cc155014f65525722a71d
 
 COCOAPODS: 1.5.3

@@ -23,6 +23,9 @@ target 'financeApp' do
   pod 'ChattoAdditions', '= 3.3.1'
   pod 'IQKeyboardManagerSwift'
   pod 'XJYChart'
+  pod 'AnimatedCollectionViewLayout'
+  pod 'ScrollableGraphView'
+  pod 'Floaty', '~> 3.0.0'
   # Pods for financeApp
 
 

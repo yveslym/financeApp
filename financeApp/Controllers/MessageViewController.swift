@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import Floaty
 
 class MessageViewController: UIViewController {
     
     @IBOutlet weak var messageTableView: UITableView!
+    
     @IBOutlet weak var cardCollectionView: UICollectionView!
     
-   
+    @IBOutlet weak var shortcutButton: Floaty!
+    
     @IBOutlet var cardView: UIView!
-     weak var delegate : plaidDelegate!
+    weak var delegate : plaidDelegate!
     
     var cards = [Account](){
         didSet{
@@ -39,9 +42,11 @@ class MessageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupShortcutButton()
+        // rotate the view the view table view
         messageTableView.transform = CGAffineTransform(rotationAngle: -(CGFloat)(Double.pi))
         messageTableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, messageTableView.frame.size.width - 0.8)
-
+        
         self.delegate = self
         self.botObserveMessage()
         self.userObserveMessage()
@@ -54,49 +59,55 @@ class MessageViewController: UIViewController {
     }
     
     @IBAction func sendButtonPress(_ sender: Any) {
-        //DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-            // Put your code which should be executed with a delay here
         
-            if !(self.messageTextField.text?.isEmpty)!{
-                guard let content = self.messageTextField.text else {return}
+        if !(self.messageTextField.text?.isEmpty)!{
+            guard let content = self.messageTextField.text else {return}
             let message = Message(time: Date().toString(), content: content, msgId: "", type: "textMessage", sentBy: "user")
-                 self.messageTextField.text = ""
+            self.messageTextField.text = ""
             MessageServices.create(message: message) { (message) in
                 
-            
                 self.messages.insert(message, at: 0)
                 
             }
         }
-              //})
     }
     
-//    func setUpSwipGesture(){
-//        let swipeDown  = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureDown(gesture:)))
-//        swipeDown.direction = UISwipeGestureRecognizerDirection.down
-//        let swipeUp =  UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureUp(gesture:)))
-//        swipeDown.direction = UISwipeGestureRecognizerDirection.up
-//
-//
-//        cardView.addGestureRecognizer(swipeUp)
-//        cardView.addGestureRecognizer(swipeDown)
-//    }
-//
-//    @objc func respondToSwipeGestureDown(gesture: UIGestureRecognizer){
-//        UIView.animate(withDuration: 1) {
-//
-//        }
-//    }
-//
-//    @objc func respondToSwipeGestureUp(gesture: UIGestureRecognizer){
-//
-//    }
-    
-    
     @IBAction func addCardButtonTapped(_ sender: Any) {
-       
-         self.delegate.presentPlaidLink()
         
+        self.delegate.presentPlaidLink()
+        
+    }
+    
+    func setupShortcutButton(){
+        let floaty = Floaty()
+        floaty.frame.origin.x = 0
+        floaty.addItem("Last Transaction", icon: UIImage(named: "transaction")) { (float) in
+            let content = "get last transaction"
+            let message = Message(time: Date().toString(), content: content, msgId: "", type: "text", sentBy: "user")
+           
+            MessageServices.create(message: message) { (message) in
+                self.messages.insert(message, at: 0)
+                floaty.close()
+            }
+        }
+        floaty.addItem("Balance", icon:  UIImage(named: "wallet")) { (float) in
+            let content = "what is my balance?"
+            let message = Message(time: Date().toString(), content: content, msgId: "", type: "text", sentBy: "user")
+           
+            MessageServices.create(message: message) { (message) in
+                self.messages.insert(message, at: 0)
+                floaty.close()
+            }
+        }
+        floaty.addItem("Add debit Card", icon:  UIImage(named: "wallet")) { (float) in
+           self.performSegue(withIdentifier: "chart", sender: nil)
+        }
+        floaty.addItem("Balance", icon:  UIImage(named: "wallet")) { (float) in
+            
+                floaty.close()
+            }
+        
+         self.view.addSubview(floaty)
     }
     
     
@@ -128,7 +139,7 @@ class MessageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         if cards.count != 0{
-           //view.addSubview(cardView)
+            //view.addSubview(cardView)
         }
         
         
@@ -164,9 +175,9 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource{
             return cell
             
         case "user":
-             print("user: ", message.time)
+            print("user: ", message.time)
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TextMessageSentTableViewCell
-              cell.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+            cell.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             cell.messageLabel.text = message.content
             return cell
             
@@ -178,13 +189,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource{
         
     }
     
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        let message = messages[indexPath.row]
-    //        let content = message.content
-    //        return 0
-    //    }
     
-
 }
 
 // - Mark Collection View life cycle
@@ -201,13 +206,6 @@ extension MessageViewController: UICollectionViewDataSource, UICollectionViewDel
         
         return cell
     }
-    
-//    func setUpCardView(){
-//        let h = view.frame.height / 6
-//        let w = view.frame.width + 20
-//        let y = view.frame.height / 10
-//        cardView.frame = CGRect(x: 0, y: y, width: w, height: h)
-//    }
     
 }
 

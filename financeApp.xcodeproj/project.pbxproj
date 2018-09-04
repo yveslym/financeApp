@@ -34,6 +34,7 @@
 		205599EA213526C800B06AD7 /* PlaidServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599E9213526C800B06AD7 /* PlaidServices.swift */; };
 		205599EC2135DC8800B06AD7 /* MessageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599EB2135DC8800B06AD7 /* MessageServices.swift */; };
 		205599EE2135DCF500B06AD7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205599ED2135DCF500B06AD7 /* Message.swift */; };
+		207860A5213E765B00433DDA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207860A4213E765B00433DDA /* UIColor+Extension.swift */; };
 		208BDCF3213DBFF800F4DAA5 /* Chart.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 208BDCF2213DBFF800F4DAA5 /* Chart.storyboard */; };
 		208BDCF7213DC52500F4DAA5 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BDCF6213DC52500F4DAA5 /* ChartViewController.swift */; };
 		208BDCF9213DC6B000F4DAA5 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208BDCF8213DC6B000F4DAA5 /* ChartTableViewCell.swift */; };
@@ -81,6 +82,7 @@
 		205599E9213526C800B06AD7 /* PlaidServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidServices.swift; sourceTree = "<group>"; };
 		205599EB2135DC8800B06AD7 /* MessageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageServices.swift; sourceTree = "<group>"; };
 		205599ED2135DCF500B06AD7 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		207860A4213E765B00433DDA /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		208BDCF2213DBFF800F4DAA5 /* Chart.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chart.storyboard; sourceTree = "<group>"; };
 		208BDCF6213DC52500F4DAA5 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		208BDCF8213DC6B000F4DAA5 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				205599A92135008200B06AD7 /* Plaid+Extensions.swift */,
 				205599DE2135114500B06AD7 /* String+Extensions.swift */,
 				205599E0213512D400B06AD7 /* Date+Extensions.swift */,
+				207860A4213E765B00433DDA /* UIColor+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-financeApp/Pods-financeApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AnimatedCollectionViewLayout/AnimatedCollectionViewLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/ApiAI/ApiAI.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Chatto/Chatto.framework",
@@ -388,6 +392,7 @@
 				"${BUILT_PRODUCTS_DIR}/Colours/Colours.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -397,6 +402,7 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${PODS_ROOT}/Plaid/ios/LinkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/ScrollableGraphView/ScrollableGraphView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/XJYChart/XJYChart.framework",
@@ -405,6 +411,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AnimatedCollectionViewLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ApiAI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Chatto.framework",
@@ -412,6 +419,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Colours.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
@@ -421,6 +429,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScrollableGraphView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XJYChart.framework",
@@ -471,6 +480,7 @@
 				205599BF2135016800B06AD7 /* Account.swift in Sources */,
 				208BDCFB213DC6D400F4DAA5 /* PieChartCollectionViewCell.swift in Sources */,
 				205599932134FBDA00B06AD7 /* AppDelegate.swift in Sources */,
+				207860A5213E765B00433DDA /* UIColor+Extension.swift in Sources */,
 				205599E421351A0B00B06AD7 /* UserServices.swift in Sources */,
 				20E9F86E213888A1006E5A80 /* TextMessageRecievedTableViewCell.swift in Sources */,
 				208BDCF7213DC52500F4DAA5 /* ChartViewController.swift in Sources */,

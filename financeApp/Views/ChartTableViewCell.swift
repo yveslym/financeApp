@@ -8,6 +8,7 @@
 
 import UIKit
 import XJYChart
+import AnimatedCollectionViewLayout
 
 class ChartTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource, XJYChartDelegate {
    
@@ -24,6 +25,10 @@ class ChartTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionV
        piChartCollectionView.delegate = self
        piChartCollectionView.dataSource = self
         
+        let layout = AnimatedCollectionViewLayout()
+        layout.animator = ZoomInOutAttributesAnimator()//ParallaxAttributesAnimator()
+        
+        //piChartCollectionView.collectionViewLayout = layout
        // piChartCollectionView.reloadData()
     }
     
@@ -44,7 +49,15 @@ class ChartTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pie", for: indexPath) as! PieChartCollectionViewCell
        
             let view = getExpenseData(month: months[indexPath.row])
-            view.frame = cell.shartView.frame.insetBy(dx: 5, dy: 5)
+            view.frame = cell.shartView.frame.insetBy(dx: 10, dy: 10)
+            cell.shartView.subviews.forEach({
+                if $0.tag == 100{
+                    $0.removeFromSuperview()
+                }
+            })
+        
+            view.tag = 100
+        
             cell.shartView.addSubview(view)
             cell.month.text = months[indexPath.row]
             cell.monday.text = "$ \(expenses[Constant.days[0]] ?? 0)"
@@ -61,8 +74,13 @@ class ChartTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionV
         cell.friColor.backgroundColor = mappedColor[Constant.days[4]]
         cell.satColor.backgroundColor = mappedColor[Constant.days[5]]
         cell.sunColor.backgroundColor = mappedColor[Constant.days[6]]
+        
+       
+        cell.frame.size.height = self.frame.height
         return cell
     }
+    
+    
     
     /// method to get expense data
     func getExpenseData(month: String) -> UIView{
@@ -99,7 +117,8 @@ class ChartTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionV
         pieChartView?.dataItemArray = NSMutableArray(array: pieItems)
         pieChartView?.descriptionTextColor = UIColor.black25Percent()
         pieChartView?.delegate = self
-        pieChartView?.hideValueLabels = true
+        pieChartView?.onlyShowValues = true
+        
     
         pieChartView?.frame = CGRect(x: 50, y: 5, width: 300, height: 190)
 //        if let aView = pieChartView {
