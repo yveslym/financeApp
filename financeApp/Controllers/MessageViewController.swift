@@ -16,6 +16,7 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var cardCollectionView: UICollectionView!
     
     @IBOutlet weak var shortcutButton: Floaty!
+   
     
     @IBOutlet var cardView: UIView!
     weak var delegate : plaidDelegate!
@@ -196,6 +197,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TextMessageSentTableViewCell
             cell.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             cell.messageLabel.text = message.content
+            cell.constraintLine.constant  = cell.contentView.frame.width - cell.messageLabel.text
             return cell
             
         default:
