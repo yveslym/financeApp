@@ -128,18 +128,17 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, Scrol
         switch(plot.identifier) {
         case "darkLine":
             return expense[pointIndex]
-        case "dot":
+        case "darkLineDot":
              return expense[pointIndex]
         case "bar":
             return transaction[pointIndex].amount
-        case "multiBlue":
-            return income[pointIndex]
-        case "multiOrange":
-            return expense[pointIndex]
+       
+        case "multiBlue": fallthrough
         case "multiBlueDot":
             return income[pointIndex]
-        case "multiOrangeSquare":
-            return expense[pointIndex]
+//        case "multiOrange": fallthrough
+//        case "multiOrangeSquare":
+//            return expense[pointIndex]
         default:
             return 0
         }

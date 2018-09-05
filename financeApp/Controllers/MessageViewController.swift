@@ -130,7 +130,7 @@ class MessageViewController: UIViewController {
              self.performSegue(withIdentifier: "chart", sender: nil)
                 floaty.close()
             }
-        
+        floaty.size = 40
          self.view.addSubview(floaty)
     }
     
