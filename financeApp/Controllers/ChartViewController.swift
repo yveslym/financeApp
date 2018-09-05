@@ -105,7 +105,7 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, Scrol
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Compacted Expense by Day"
     }
-    
+   
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.section == 0{
         let cell = cell as! ChartTableViewCell

@@ -158,7 +158,7 @@ class LoginViewController: UIViewController {
         }
     }
     @IBAction func loginButtonTapped(_ sender: Any){
-        self.showWaitOverlayWithText("Checking Authentification")
+        self.showWaitOverlayWithText("Checking Authentification...")
         let email = loginEmail.text
         let password = loginPassword.text
         if (email?.count)! > 4 && (password?.count)! > 4 {
@@ -173,6 +173,7 @@ class LoginViewController: UIViewController {
                    self.performSegue(withIdentifier: "message", sender: nil)
                 }
                 else{
+                     self.removeAllOverlays()
                     self.presentAlert(title: "Authentication error", message: "check your username or password")
                     self.removeAllOverlays()
                     print("no user")
