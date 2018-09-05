@@ -9,31 +9,34 @@
 import Foundation
 import UIKit
 import LinkKit
+import SwiftOverlays
 
 protocol plaidDelegate: class {
-    func presentPlaidLink()
+    func presentPlaidLink(sender: UIViewController)
+    
 }
 
 extension plaidDelegate where Self: UIViewController {
     
     
     /// function to set-up and present Plaid UI
-    func presentPlaidLink(){
+    func presentPlaidLink(sender: UIViewController){
         // KeyChainData.publicKey()
         let linkConfiguration = PLKConfiguration(key: KeyChainData.publicKey()!,
-                                                 env: .development,
+                                                 env: .sandbox,
                                                  product:.connect,
                                                  selectAccount: true,
                                                  longtailAuth: false,
                                                  apiVersion: .PLKAPILatest)
         
-        linkConfiguration.clientName = "Core Project"
+        linkConfiguration.clientName = "Finance App"
         let linkViewDelegate = self
         let linkViewController = PLKPlaidLinkViewController(configuration: linkConfiguration, delegate: linkViewDelegate )
         
         if (UI_USER_INTERFACE_IDIOM() == .pad) {
             linkViewController.modalPresentationStyle = .formSheet;
         }
+        sender.showWaitOverlayWithText("Authenticating...")
         self.present(linkViewController, animated: true, completion: nil)
         
     }
@@ -49,7 +52,7 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
             let bank = try JSONDecoder().decode(Bank.self, from: jsonData)
             
             plaidOperation.itemAccess(publicToken: publicToken, completion: { (itemAccess) in
-                
+                self.updateOverlayText("retrieving bank data..")
                 bank.itemAccess = itemAccess
                 plaidOperation.accounts(bank: bank, completion: { (accounts) in
                     
@@ -58,7 +61,7 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
                     formatter.dateFormat = "dd-MM-yyyy"
                     let endDate = Date()
                     let startDate = Calendar.current.date(byAdding: .day, value: -360, to: endDate)
-                    
+                    self.updateOverlayText("retrieving transaction..")
                     plaidOperation.transactionFromPlaid(with: bank, startDate: startDate!, endDate: endDate, completion: { (allTransaction) in
                         
                         if allTransaction != nil{
@@ -76,8 +79,10 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
                             })
                             plaidOperation.getBalance(with: bank, completion: { (balance) in
                                 //bank.balanaces = balance
+                                 self.updateOverlayText("operation completed...")
                                 plaidServices.createBank(bank, completion: {
                                     print("bank uploaded")
+                                    self.removeAllOverlays()
                                 })
                             })
                            
@@ -87,6 +92,7 @@ extension UIViewController: PLKPlaidLinkViewDelegate{
                     })
                 })
             })
+            
             self.dismiss(animated: true, completion: nil)
             self.reloadInputViews()
         }

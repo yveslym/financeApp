@@ -38,6 +38,10 @@ class MessageViewController: UIViewController {
         }
     }
     
+    @IBAction func  forgotPasswordButtonTapped(_ sender: UIButton){
+    
+    }
+    
     /// method to send a welcome message to user
     func welcomeMessage(){
         let content = "Hey \(User.current.name), welcome to Finance app, I'm Yveslym your companion, you can ask me any question about you account, like what's my last purchase? for example, and don't forget to add your debit cared so i can help you 😎"
@@ -94,11 +98,7 @@ class MessageViewController: UIViewController {
         }
     }
     
-    @IBAction func addCardButtonTapped(_ sender: Any) {
-        
-        self.delegate.presentPlaidLink()
-        
-    }
+  
     
     /// method to set up the short cut button
     private func setupShortcutButton(){
@@ -123,7 +123,7 @@ class MessageViewController: UIViewController {
             }
         }
         floaty.addItem("Add debit Card", icon:  UIImage(named: "debit")) { (float) in
-           self.delegate.presentPlaidLink()
+            self.delegate.presentPlaidLink(sender: self)
             floaty.close()
         }
         floaty.addItem("See Chart", icon:  UIImage(named: "chart")) { (float) in
@@ -176,6 +176,8 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource{
         return messages.count
     }
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let message = messages[indexPath.row]
@@ -207,6 +209,10 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension MessageViewController: plaidDelegate{
+    func presentPlaidLink() {
+        
+    }
+    
     
 }
 

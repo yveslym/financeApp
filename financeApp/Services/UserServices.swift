@@ -107,7 +107,11 @@ struct UserServices{
             if error == nil{
                 create(user: user!, completion: { (user) in
                     if user != nil{
-                        return completion(user)
+                        emailVerification(email: (user?.email)!, completion: { (sent) in
+                           print(sent)
+                            return completion(user)
+                        })
+                       
                     }
                     else{
                         return completion(nil)
@@ -123,7 +127,7 @@ struct UserServices{
         }
     }
     
-    static func sendEmailForgetPassword(_ password: String, email: String, completion: @escaping() ->()){
+    static func sendEmailForgetPassword( email: String, completion: @escaping(String?) ->()){
         let actionCodeSettings =  ActionCodeSettings.init()
         actionCodeSettings.handleCodeInApp = true
         
@@ -134,7 +138,10 @@ struct UserServices{
         Auth.auth().sendPasswordReset(withEmail: email, actionCodeSettings: actionCodeSettings) { (error) in
             
             if error == nil{
-                
+               completion(nil)
+            }
+            else{
+                completion(error?.localizedDescription)
             }
         }
     }

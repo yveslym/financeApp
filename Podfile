@@ -26,6 +26,7 @@ target 'financeApp' do
   pod 'AnimatedCollectionViewLayout'
   pod 'ScrollableGraphView'
   pod 'Floaty', '~> 3.0.0'
+   pod 'SwiftOverlays', '~> 4.0.0'
   # Pods for financeApp
 
 

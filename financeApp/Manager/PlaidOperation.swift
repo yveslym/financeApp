@@ -18,7 +18,7 @@ class plaidOperation{
     static func transactionFromPlaid(with bank: Bank, startDate: Date, endDate: Date, completion: @escaping ([Transaction]?) -> Void) {
       
         let days = [startDate,endDate]
-        Networking.network(bank: bank, route: .transactions, apiHost: .development, date: days,completion: { (data) in
+        Networking.network(bank: bank, route: .transactions, apiHost: .sandbox, date: days,completion: { (data) in
             var myTransaction = try! JSONDecoder().decode(transactionOperation.self, from: data!)
             
             return completion(myTransaction.transactions)
@@ -26,7 +26,7 @@ class plaidOperation{
     }
     
     static func itemAccess(publicToken: String, completion: @escaping (ItemAccess?) -> Void){
-        Networking.network(route: .exchangeToken, apiHost: .development,public_token: publicToken,completion: { (data) in
+        Networking.network(route: .exchangeToken, apiHost: .sandbox,public_token: publicToken,completion: { (data) in
             let itemAccess = try! JSONDecoder().decode(ItemAccess.self, from: data!)
             return completion(itemAccess)
         })
@@ -37,7 +37,7 @@ class plaidOperation{
 
     static func getBalance(with bank: Bank, completion: @escaping ([Balance]?)-> Void){
     
-        Networking.network(bank: bank, route: .balance, apiHost: .development) { (data) in
+        Networking.network(bank: bank, route: .balance, apiHost: .sandbox) { (data) in
            
             let json = try! JSON(data: data!)
             let accounts = json["accounts"].arrayValue
@@ -58,7 +58,7 @@ class plaidOperation{
     }
     
     static func accounts(bank: Bank, completion: @escaping ([Account]?)-> Void){
-        Networking.network(bank: bank, route:.accounts , apiHost: .development) { (data) in
+        Networking.network(bank: bank, route:.accounts , apiHost: .sandbox) { (data) in
             
             guard let data = data else {return}
             

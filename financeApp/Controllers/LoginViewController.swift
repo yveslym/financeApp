@@ -11,6 +11,7 @@ import Firebase
 import GoogleSignIn
 import FBSDKCoreKit
 import FBSDKLoginKit
+import SwiftOverlays
 
 class LoginViewController: UIViewController {
 
@@ -44,7 +45,7 @@ class LoginViewController: UIViewController {
     func setUpLoginView(){
         let height = view.frame.height - (view.frame.height / 6)
         let widght = view.frame.width - (view.frame.width / 8)
-        let y = view.frame.midY / 2
+       
         let x = view.frame.midX / 4
         loginView.frame = CGRect(x:  x , y: 20, width: widght, height: height)
         let center = view.center
@@ -55,6 +56,33 @@ class LoginViewController: UIViewController {
         loginButton.layer.masksToBounds = true
         loginButton.layer.cornerRadius = 20
     }
+    
+    @IBAction func forgotPasswordButtonTapped(_ sender: Any) {
+       
+        let alert = UIAlertController(title: "forgot Password?", message: "please enter your new password and don't forget this time 😎", preferredStyle: .alert)
+        var email = UITextField()
+        alert.addTextField { textField -> Void in
+            email = textField
+        }
+
+        let cancel = UIAlertAction(title: "Return", style: .cancel, handler: nil)
+        let ok = UIAlertAction(title: "Ok", style: .default) { (action) in
+            self.showWaitOverlayWithText("sending...")
+            UserServices.sendEmailForgetPassword(email: email.text!, completion: { (error) in
+                if let error = error{
+                    self.presentAlert(title: "Oppss", message: error)
+                    self.removeAllOverlays()
+                }
+                self.updateOverlayText("sent")
+                self.removeAllOverlays()
+            })
+            
+        }
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert,animated: true)
+    }
+    
 
     func setUpRegisterView(){
         let height = view.frame.height - (view.frame.height / 6)
@@ -94,6 +122,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func googleButtonTapped(_ sender: Any) {
+        
          GIDSignIn.sharedInstance().signIn()
     }
     
@@ -129,18 +158,23 @@ class LoginViewController: UIViewController {
         }
     }
     @IBAction func loginButtonTapped(_ sender: Any){
+        self.showWaitOverlayWithText("Checking Authentification")
         let email = loginEmail.text
         let password = loginPassword.text
         if (email?.count)! > 4 && (password?.count)! > 4 {
             
             UserServices.loginWithEmail(password!, email: email!, signUpType: .login) { (usr) in
                 if let usr = usr{
+                    self.updateOverlayText("Login Success")
                 User.setCurrent(usr,writeToUserDefaults: true)
                
+                    self.removeAllOverlays()
                     // open next page
                    self.performSegue(withIdentifier: "message", sender: nil)
                 }
                 else{
+                    self.presentAlert(title: "Authentication error", message: "check your username or password")
+                    self.removeAllOverlays()
                     print("no user")
                 }
             }
@@ -151,15 +185,16 @@ class LoginViewController: UIViewController {
         let password = registerPassword.text
         let name = registerFullName.text
         let user = User(name: name!, email: email!)
-        
+        self.showWaitOverlayWithText("Register User")
         UserServices.loginWithEmail(password, email: email!, user: user, signUpType: .register) { (user) in
             if let user = user{
-                
+                self.updateOverlayText("login success")
                 User.setCurrent(user, writeToUserDefaults: true)
+                self.removeAllOverlays()
                 self.performSegue(withIdentifier: "message", sender: nil)
             }
             else{
-                // send error message
+               self.presentAlert(title: "Error", message: "Please fill the form correctly")
             }
         }
         
