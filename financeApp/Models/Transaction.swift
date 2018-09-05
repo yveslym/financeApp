@@ -109,7 +109,7 @@ extension Transaction{
     /// function to return all of income transaction by year
     static func incomeByYear(year: Int, transaction: [Transaction]) -> [Transaction]{
         let keyYear = String(year)
-        let trans = transaction.filter {($0.date?.hasSuffix(keyYear))! && $0.amount > 0.0}
+        let trans = transaction.filter {($0.date?.contains(keyYear))! && $0.amount > 0.0}
         return trans
     }
 

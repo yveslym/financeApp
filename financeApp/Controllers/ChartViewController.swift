@@ -19,13 +19,17 @@ class ChartViewController: UIViewController {
     var transaction = [Transaction](){
         didSet{
              let trans = Transaction.expensesByYear(year: 2018, transaction: transaction)
+            let incomeTrans = Transaction.incomeByYear(year: 2018, transaction: transaction)
+            income = incomeTrans.compactMap({$0.amount})
             expense = trans.compactMap({$0.amount})
+            
             expenseDate = trans.compactMap({$0.date})
             chartTableView.reloadData()
         }
     }
     var expense = [Double]()
     var expenseDate = [String]()
+    var income = [Double]()
     var section = Int()
     
     override func viewDidLoad() {
@@ -64,7 +68,7 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, Scrol
         return 1
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,8 +83,17 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, Scrol
             cell.contentView.addSubview(chart)
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "multi", for: indexPath) as! ChartTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "bar", for: indexPath)
+           let chart = setupBarChart(cell: cell)
+            cell.contentView.addSubview(chart)
             return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "multi", for: indexPath)
+            let chart = setupDoubleLinePlot(cell: cell)
+            cell.contentView.addSubview(chart)
+            return cell
+            
+            
             
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "pie", for: indexPath) as! ChartTableViewCell
@@ -117,29 +130,48 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, Scrol
             return expense[pointIndex]
         case "dot":
              return expense[pointIndex]
-        case "multiBlue": return 0
+        case "bar":
+            return transaction[pointIndex].amount
+        case "multiBlue":
+            return income[pointIndex]
+        case "multiOrange":
+            return expense[pointIndex]
+        case "multiBlueDot":
+            return income[pointIndex]
+        case "multiOrangeSquare":
+            return expense[pointIndex]
         default:
             return 0
         }
     }
     
     func label(atIndex pointIndex: Int) -> String {
-       
-        return expenseDate[pointIndex]
+        switch section{
+        case 1:
+            return expenseDate[pointIndex]
+        case 2:
+            return transaction[pointIndex].date!
+        case 3:
+            return expenseDate[pointIndex]
+        default:
+            return "0"
+        }
     }
     
     func numberOfPoints() -> Int {
         switch section{
         case 1:
-        return expense.count
+            return expense.count
         case 2:
-            return 0
+            return transaction.count
+        case 3:
+            return income.count
         default:
             return 0
         }
     }
     
-    func setUpLinePlot(cell: UITableViewCell)-> UIView{
+    func setUpLinePlot(cell: UITableViewCell)-> UIView {
         let graphView = ScrollableGraphView(frame: cell.contentView.frame.insetBy(dx: 0, dy: 5), dataSource: self)
         
         let linePlot = LinePlot(identifier: "darkLine") // Identifier should be unique for each plot.
@@ -191,33 +223,76 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, Scrol
         graphView.addPlot(plot: dotPlot)
         return graphView
     }
-    func doublelinePlot(cell: UITableViewCell) -> UIView{
-        // Setup the line plot.
+   
+    func setupBarChart(cell: UITableViewCell) -> UIView{
+    
          let graphView = ScrollableGraphView(frame: cell.contentView.frame.insetBy(dx: 0, dy: 5), dataSource: self)
+        // Setup the plot
+        let barPlot = BarPlot(identifier: "bar")
+        
+        barPlot.barWidth = 25
+        barPlot.barLineWidth = 1
+        barPlot.shouldRoundBarCorners = true
+        
+        barPlot.barLineColor = UIColor.colorFromHex(hexString: "#777777")
+        barPlot.barColor = UIColor.colorFromHex(hexString: "#555555")
+        
+        barPlot.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
+        barPlot.animationDuration = 1.5
+        
+        // Setup the reference lines
+        let referenceLines = ReferenceLines()
+        
+        referenceLines.referenceLineLabelFont = UIFont.boldSystemFont(ofSize: 8)
+        referenceLines.referenceLineColor = UIColor.white.withAlphaComponent(0.2)
+        referenceLines.referenceLineLabelColor = UIColor.white
+        
+        referenceLines.dataPointLabelColor = UIColor.white.withAlphaComponent(0.5)
+        
+        // Setup the graph
+        graphView.backgroundFillColor = UIColor.colorFromHex(hexString: "#333333")
+        
+        graphView.shouldAnimateOnStartup = true
+        graphView.dataPointSpacing = 60
+        graphView.rangeMax = 100
+        graphView.rangeMin = 0
+        
+        // Add everything
+        graphView.addPlot(plot: barPlot)
+        graphView.addReferenceLines(referenceLines: referenceLines)
+        return graphView
+    }
+    
+    func setupDoubleLinePlot(cell: UITableViewCell) -> UIView{
+        let graphView = ScrollableGraphView(frame: cell.contentView.frame.insetBy(dx: 0, dy: 5), dataSource: self)
+
+        // Setup the first plot.
         let blueLinePlot = LinePlot(identifier: "multiBlue")
         
-        blueLinePlot.lineWidth = 1
         blueLinePlot.lineColor = UIColor.colorFromHex(hexString: "#16aafc")
-        blueLinePlot.lineStyle = ScrollableGraphViewLineStyle.smooth
-        
-        blueLinePlot.shouldFill = true
-        blueLinePlot.fillType = ScrollableGraphViewFillType.solid
-        blueLinePlot.fillColor = UIColor.colorFromHex(hexString: "#16aafc").withAlphaComponent(0.5)
-        
         blueLinePlot.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
         
-        // Setup the second line plot.
+        // dots on the line
+        let blueDotPlot = DotPlot(identifier: "multiBlueDot")
+        blueDotPlot.dataPointType = ScrollableGraphViewDataPointType.circle
+        blueDotPlot.dataPointSize = 5
+        blueDotPlot.dataPointFillColor = UIColor.colorFromHex(hexString: "#16aafc")
+        
+        blueDotPlot.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
+        
+        // Setup the second plot.
         let orangeLinePlot = LinePlot(identifier: "multiOrange")
         
-        orangeLinePlot.lineWidth = 1
         orangeLinePlot.lineColor = UIColor.colorFromHex(hexString: "#ff7d78")
-        orangeLinePlot.lineStyle = ScrollableGraphViewLineStyle.smooth
-        
-        orangeLinePlot.shouldFill = true
-        orangeLinePlot.fillType = ScrollableGraphViewFillType.solid
-        orangeLinePlot.fillColor = UIColor.colorFromHex(hexString: "#ff7d78").withAlphaComponent(0.5)
-        
         orangeLinePlot.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
+        
+        // squares on the line
+        let orangeSquarePlot = DotPlot(identifier: "multiOrangeSquare")
+        orangeSquarePlot.dataPointType = ScrollableGraphViewDataPointType.square
+        orangeSquarePlot.dataPointSize = 5
+        orangeSquarePlot.dataPointFillColor = UIColor.colorFromHex(hexString: "#ff7d78")
+        
+        orangeSquarePlot.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
         
         // Setup the reference lines.
         let referenceLines = ReferenceLines()
@@ -225,6 +300,7 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, Scrol
         referenceLines.referenceLineLabelFont = UIFont.boldSystemFont(ofSize: 8)
         referenceLines.referenceLineColor = UIColor.white.withAlphaComponent(0.2)
         referenceLines.referenceLineLabelColor = UIColor.white
+        referenceLines.relativePositions = [0, 0.2, 0.4, 0.6, 0.8, 1]
         
         referenceLines.dataPointLabelColor = UIColor.white.withAlphaComponent(1)
         
@@ -232,15 +308,17 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, Scrol
         graphView.backgroundFillColor = UIColor.colorFromHex(hexString: "#333333")
         
         graphView.dataPointSpacing = 80
+        
         graphView.shouldAnimateOnStartup = true
         graphView.shouldAdaptRange = true
-        
         graphView.shouldRangeAlwaysStartAtZero = true
         
         // Add everything to the graph.
         graphView.addReferenceLines(referenceLines: referenceLines)
         graphView.addPlot(plot: blueLinePlot)
+        graphView.addPlot(plot: blueDotPlot)
         graphView.addPlot(plot: orangeLinePlot)
+        graphView.addPlot(plot: orangeSquarePlot)
         return graphView
     }
 }

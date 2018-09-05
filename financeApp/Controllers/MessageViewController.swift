@@ -79,10 +79,6 @@ class MessageViewController: UIViewController {
     }
 }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBAction func sendButtonPress(_ sender: Any) {
         
@@ -104,7 +100,8 @@ class MessageViewController: UIViewController {
         
     }
     
-    func setupShortcutButton(){
+    /// method to set up the short cut button
+    private func setupShortcutButton(){
         let floaty = Floaty()
         floaty.frame.origin.x = 0
         floaty.addItem("Last Transaction", icon: UIImage(named: "transaction")) { (float) in
@@ -139,13 +136,14 @@ class MessageViewController: UIViewController {
     
     
     
-    
-    func botObserveMessage(){
+    /// method to observe bot incoming message
+   private func botObserveMessage(){
         BotServices.botObserverMessage { (sent) in
             print(sent ?? "")
         }
     }
-    func userObserveMessage(){
+     /// method to observe user incoming message
+   private func userObserveMessage(){
         UserServices.observeNewMessage { (message) in
             if let msg = message{
                 self.messages.insert(msg, at: 0)
@@ -153,7 +151,7 @@ class MessageViewController: UIViewController {
         }
     }
     /// method to retieve all bank Account
-    func getMyBankCard(){
+   private func getMyBankCard(){
         plaidServices.retrieveAccount { (accounts) in
             if let accounts = accounts{
                 //self.view.addSubview(self.cardView)
@@ -197,7 +195,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TextMessageSentTableViewCell
             cell.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             cell.messageLabel.text = message.content
-            cell.constraintLine.constant  = cell.contentView.frame.width - cell.messageLabel.text
+            //cell.constraintLine.constant  = cell.contentView.frame.width - cell.messageLabel.text
             return cell
             
         default:
@@ -205,27 +203,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource{
             cell.messageLabel.text = message.content
             return cell
         }
-        
     }
-    
-    
-}
-
-// - Mark Collection View life cycle
-
-extension MessageViewController: UICollectionViewDataSource, UICollectionViewDelegate{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cards.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "card", for: indexPath) as! CardCollectionViewCell
-        let user = User.current
-        cell.cardHolder.text = user.name
-        
-        return cell
-    }
-    
 }
 
 extension MessageViewController: plaidDelegate{
