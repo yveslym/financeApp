@@ -66,11 +66,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if UserDefaults.standard.value(forKey: "current") != nil{
             
-            let mainVC = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController()
-            window?.rootViewController = mainVC
-            window?.makeKeyAndVisible()
+            let blankVC = BlankViewController()
+            self.window?.rootViewController = blankVC
+            self.window?.makeKeyAndVisible()
             
+            MessageServices.fetchMessages { (messages) in
+                if let messages = messages{
+                     let mainVC = TestViewController()
+                    let dataSource = DemoChatDataSource(messages: DemoChatMessageFactory.initServerMessage(messages: messages), pageSize: messages.count)
+                    mainVC.dataSource = dataSource
+                    self.window?.rootViewController = mainVC
+                    self.window?.makeKeyAndVisible()
+                }
+                else{
+                     let mainVC = TestViewController()
+                    mainVC.dataSource = DemoChatDataSource(count: 0, pageSize: 50)
+                    self.window?.rootViewController = mainVC
+                    self.window?.makeKeyAndVisible()
+                }
+            }
         }
+//        let rootViewController = ChatExamplesViewController()
+//        let window = UIWindow()
+//        window.rootViewController = UINavigationController(rootViewController: rootViewController)
+//        self.window = window
+//        self.window?.makeKeyAndVisible()
         KeyChainData.setUpKeyChain()
         return true
     }
@@ -160,9 +180,21 @@ extension AppDelegate: GIDSignInDelegate{
             UserServices.loginWithGoogle(googleUser: user, completion: { (user) in
                 if let user = user{
                     User.setCurrent(user, writeToUserDefaults: true)
-                    let vc = UIStoryboard(name: "Message", bundle: nil).instantiateInitialViewController()
-                    self.window?.rootViewController = vc
-                    self.window?.makeKeyAndVisible()
+                   
+                    let vc = TestViewController()
+                    MessageServices.fetchMessages(completion: { (messages) in
+                        if messages != nil{
+                            let dataSource = DemoChatDataSource(messages: DemoChatMessageFactory.initServerMessage(messages: messages!), pageSize: 50)
+                            vc.dataSource = dataSource
+                        }
+                        else{
+                            let dataSource = DemoChatDataSource(count: 0, pageSize: 50)
+                            vc.dataSource = dataSource
+                        }
+                        self.window?.rootViewController = vc
+                        self.window?.makeKeyAndVisible()
+                    })
+                   
                 }
                 else{
                     //self.presentAlert(title: "Login Error", message: "coun't register please try again!!!")

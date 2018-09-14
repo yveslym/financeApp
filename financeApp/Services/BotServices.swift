@@ -159,15 +159,18 @@ struct BotServices{
                 let msg = Message(time: Date().toString(), content: content, msgId: "", type: "text", sentBy: "bot")
             message.append(msg)
             }
-            message.forEach { (msg) in
-                dg.enter()
-                MessageServices.create(message: msg) { (message) in
-                   dg.leave()
-                }
-                dg.notify(queue: .global(), execute: {
-                    completion(message.first)
-                })
-                }
+            MessageServices.create(message: message.first!) { (message) in
+                completion(message)
+            }
+//            message.forEach { (msg) in
+//                dg.enter()
+//                MessageServices.create(message: msg) { (message) in
+//                   dg.leave()
+//                }
+//                dg.notify(queue: .global(), execute: {
+//                    completion(message.first)
+//                })
+//                }
             }
         }
     }

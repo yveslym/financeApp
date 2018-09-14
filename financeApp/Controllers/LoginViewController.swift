@@ -29,10 +29,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var googleLoginButton: UIButton!
     @IBOutlet weak var facebookSignUpButton: UIButton!
     
+    @IBOutlet weak var logoImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-     
+        logoImageView.alpha = 0
         setUpLoginView()
         setUpRegisterView()
          self.view.addSubview(loginView)
@@ -47,14 +48,66 @@ class LoginViewController: UIViewController {
         let widght = view.frame.width - (view.frame.width / 8)
        
         let x = view.frame.midX / 4
-        loginView.frame = CGRect(x:  x , y: 20, width: widght, height: height)
+        loginView.frame = CGRect(x:  view.frame.maxX , y: 20, width: widght, height: height)
         let center = view.center
          loginView.center = center
+        loginView.frame.origin.x = view.frame.maxX
        //loginView.frame.origin.y = 20
        
         
         loginButton.layer.masksToBounds = true
         loginButton.layer.cornerRadius = 20
+    }
+    func setUpRegisterView(){
+        let height = view.frame.height - (view.frame.height / 6)
+        let widght = view.frame.width - (view.frame.width / 8)
+        let y = view.frame.midY / 2
+        let x = view.frame.midX / 4
+        let center = view.center
+        registerView.frame = CGRect(x:  x , y: y, width: widght, height: height)
+        registerView.center = center
+        registerView.frame.origin.x = -view.frame.width
+        registerView.frame.origin.y = self.view.frame.height - loginView.frame.height//view.frame.maxY
+        
+        signUpButton.layer.masksToBounds = true
+        signUpButton.layer.cornerRadius = 20
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+         let x = view.frame.midX / 4
+        let animateX = {
+            self.loginView.center = self.view.center
+        }
+        let animateRx = {
+            self.registerView.center.x = self.view.center.x
+        }
+        
+        let showLogo = {
+            self.logoImageView.alpha = 1
+        }
+        
+        let rotateLogo = {
+            self.logoImageView.transform = self.logoImageView.transform.rotated(by: CGFloat(Double.pi ))
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseIn], animations: animateX, completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: animateX) { (finish) in
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: animateRx) { (finish) in
+                UIView.animate(withDuration: 0.7, delay: 0, options: [], animations: showLogo) { (finish) in
+                    
+//                    UIView.animate(withDuration: 0.7, delay: 0, options: [.repeat], animations: rotateLogo) { (finish) in
+//                        UIView.animate(withDuration: 0.7, delay: 0, options: [], animations: rotateLogo) { (finish) in
+//                            
+//                        }
+//                    }
+                }
+
+            }
+        }
+        
+       
+        
     }
     
     @IBAction func forgotPasswordButtonTapped(_ sender: Any) {
@@ -84,19 +137,7 @@ class LoginViewController: UIViewController {
     }
     
 
-    func setUpRegisterView(){
-        let height = view.frame.height - (view.frame.height / 6)
-        let widght = view.frame.width - (view.frame.width / 8)
-        let y = view.frame.midY / 2
-        let x = view.frame.midX / 4
-        let center = view.center
-        registerView.frame = CGRect(x:  x , y: y, width: widght, height: height)
-        registerView.center = center
-        registerView.frame.origin.y = 120//view.frame.maxY
-       
-        signUpButton.layer.masksToBounds = true
-        signUpButton.layer.cornerRadius = 20
-    }
+    
 
     @IBAction func backToLoginButtonTapped(_ sender: Any) {
         let animation = {
@@ -150,7 +191,9 @@ class LoginViewController: UIViewController {
                     UserServices.loginWithFacebook(sender: self, completion: { (user) in
                         if user != nil{
                             User.setCurrent(user!, writeToUserDefaults: true)
-                            self.performSegue(withIdentifier: "message", sender: nil)
+                            //self.performSegue(withIdentifier: "message", sender: nil)
+                            let viewC = TestViewController()
+                            self.present(viewC,animated: true)
                         }
                     })
                 }
@@ -170,7 +213,19 @@ class LoginViewController: UIViewController {
                
                     self.removeAllOverlays()
                     // open next page
-                   self.performSegue(withIdentifier: "message", sender: nil)
+                    let vc = TestViewController()
+                    MessageServices.fetchMessages(completion: { (messages) in
+                        if messages != nil{
+                            let dataSource = DemoChatDataSource(messages: DemoChatMessageFactory.initServerMessage(messages: messages!), pageSize: 50)
+                            vc.dataSource = dataSource
+                        }
+                        else{
+                            let dataSource = DemoChatDataSource(count: 0, pageSize: 50)
+                            vc.dataSource = dataSource
+                        }
+                       self.present(vc,animated: true)
+                    })
+                    
                 }
                 else{
                      self.removeAllOverlays()
@@ -192,7 +247,10 @@ class LoginViewController: UIViewController {
                 self.updateOverlayText("login success")
                 User.setCurrent(user, writeToUserDefaults: true)
                 self.removeAllOverlays()
-                self.performSegue(withIdentifier: "message", sender: nil)
+                let vc = TestViewController()
+                let dataSource = DemoChatDataSource(count: 0, pageSize: 50)
+                vc.dataSource = dataSource
+                self.present(vc,animated: true)
             }
             else{
                self.presentAlert(title: "Error", message: "Please fill the form correctly")
