@@ -179,6 +179,7 @@ extension TestViewController{
         }
         floaty.size = 40
         floaty.paddingY = 100
+        floaty.paddingX = 1
    
         self.view.addSubview(floaty)
     }

@@ -180,7 +180,9 @@ extension AppDelegate: GIDSignInDelegate{
             UserServices.loginWithGoogle(googleUser: user, completion: { (user) in
                 if let user = user{
                     User.setCurrent(user, writeToUserDefaults: true)
-                   
+                    let blank = BlankViewController()
+                    self.window?.rootViewController = blank
+                    self.window?.makeKeyAndVisible()
                     let vc = TestViewController()
                     MessageServices.fetchMessages(completion: { (messages) in
                         if messages != nil{
